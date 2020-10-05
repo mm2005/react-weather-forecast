@@ -4,24 +4,24 @@ import styled from "styled-components";
 
 function Navbar() {
   return (
-    <nav>
-      <Header>
-        <Link to="/">Home</Link> | <Link to="/">About</Link>
-        <Link to="/" style={{ float: "right" }}>
-          Favorites
-        </Link>
-      </Header>
-    </nav>
+    <Header>
+      <nav>
+        <p>
+          <Link to="/">Home</Link> | <Link to="/favorites">Favorites</Link> |
+          {"  "}
+          <Link to="/about">About</Link>
+        </p>
+      </nav>
+    </Header>
   );
 }
 
 const Header = styled.header`
-  background-color: lightgreen;
+  background-color: #bdd7f0;
   text-align: center;
   padding: 15px;
-  font-family: ${(props) => props.theme.fontFamily};
   &:hover {
-    background-color: lightgray;
+    background-color: #cde4fa;
   }
 `;
 

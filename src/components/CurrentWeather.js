@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import styled from "styled-components";
+import WeatherDetails from "./WeatherDetails";
 
 const CurrentWeather = () => {
   const apiKey = "3c850b0463346d2fffad82b66d5eb561";
   const city = "budapest";
-  const abc = "[°C] = [K] − 273.15";
   const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
-  const icon = "";
-  const iconUrl = "http://openweathermap.org/img/wn/10d@2x.png";
 
   const [state, setState] = useState({
     id: null,
@@ -32,18 +31,18 @@ const CurrentWeather = () => {
   }, [url]);
 
   return (
-    <React.Fragment>
-      <img
-        src={`http://openweathermap.org/img/wn/${state.weather[0].icon}@2x.png`}
-        alt=""
-      />
-      <p>Location: {state.name}</p>
-      <p>Temperature: {Math.round(state.main.temp - 273.15)} °C</p>
-      <p>Humidity: {state.main.humidity} %</p>
-      <p>Pressure: {state.main.pressure} hPa</p>
-      <p>Wind: {Math.round(state.wind.speed * 3.6)} km/h</p>
-    </React.Fragment>
+    <CardHolder>
+      <WeatherDetails state={state} />
+    </CardHolder>
   );
 };
+
+const CardHolder = styled.div`
+  display: flex;
+  margin: 20px;
+  padding: 10px;
+  height: auto;
+  flex-wrap: wrap;
+`;
 
 export default CurrentWeather;
