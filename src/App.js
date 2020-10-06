@@ -5,7 +5,7 @@ import CWeather from "./components/CWeather";
 import FavoriteLocations from "./components/FavoriteLocations";
 import About from "./components/About";
 import Navbar from "./components/layout/Navbar";
-import WeatherForecast from "./components/Forecast";
+// import WeatherForecast from "./components/Forecast";
 
 function App() {
   return (
@@ -16,7 +16,7 @@ function App() {
           <Route exact path="/" component={CWeather} />
           <Route path="/favorites" component={FavoriteLocations} />
           <Route path="/about" component={About} />
-          <Route path="/forecast" component={WeatherForecast} />
+          {/* <Route path="/forecast" component={WeatherForecast} /> */}
         </Switch>
       </Router>
     </div>

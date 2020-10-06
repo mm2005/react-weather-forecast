@@ -1,11 +1,12 @@
 ﻿import React, { useState, useEffect } from "react";
 import axios from "axios";
-import styled from "styled-components";
+import { weekdays } from "../util/daysOfWeek";
 
 const WeatherForecast = () => {
   const apiKey = "3c850b0463346d2fffad82b66d5eb561";
   const city = "budapest";
-  const url = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}`;
+  const limit = "32";
+  const url = `https://api.openweathermap.org/data/2.5/forecast?appid=${apiKey}&units=metric&q=${city}&cnt=${limit}`;
 
   function checkDateTime(data) {
     return new Date(data.dt_txt).getHours() === 12;
@@ -14,25 +15,21 @@ const WeatherForecast = () => {
   const [state, setState] = useState([]);
 
   useEffect(() => {
-    axios
-      .get(
-        `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}`
-      )
-      .then((res) => setState(res.data.list.filter(checkDateTime)));
+    axios.get(url).then((res) => setState(res.data.list.filter(checkDateTime)));
   }, [url]);
 
   return (
     console.log(state),
     state.map((item) => (
-      <div>
-        <p>{item.dt_txt}</p>
-        <p>{item.main.temp}</p>
-        <p>{item.weather[0].description}</p>
+      <div key={item.dt}>
+        <h4>{weekdays[new Date(item.dt_txt).getDay()]}</h4>
         <img
           src={`http://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png`}
           alt=""
           style={{ width: "auto" }}
         />
+        <p>{Math.round(item.main.temp)}°</p>
+        <p>{item.weather[0].description}</p>
       </div>
     ))
   );

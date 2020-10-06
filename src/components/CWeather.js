@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import WeatherForecast from "./Forecast";
 
 const Weather = () => {
   const apiKey = "3c850b0463346d2fffad82b66d5eb561";
@@ -46,6 +47,13 @@ const Weather = () => {
     padding: "15px 15px 25px 15px",
   };
 
+  const box2Style = {
+    display: "flex",
+    padding: "20px",
+    textAlign: "center",
+    justifyContent: "space-evenly",
+  };
+
   const lilGridStyle = {
     display: "grid",
     gridTemplateColumns: "1fr 1fr",
@@ -78,6 +86,9 @@ const Weather = () => {
             <p>11°</p>
           </div>
         </div>
+      </div>
+      <div className="box2" style={box2Style}>
+        <WeatherForecast />
       </div>
     </div>
   );
