@@ -38,6 +38,7 @@ const Weather = () => {
     height: "auto",
     marginTop: "20px",
     padding: "60px",
+    // backgroundImage: "url(../assets/rain.jpg)",
   };
 
   const box1Style = {
@@ -58,7 +59,7 @@ const Weather = () => {
   };
 
   return (
-    <div style={gridStyle}>
+    <div className="grid-container" style={gridStyle}>
       <div className="box1" style={box1Style}>
         <div style={lilGridStyle}>
           <h3 stlye={{ gridArea: "todaybox1" }}>Today</h3>
