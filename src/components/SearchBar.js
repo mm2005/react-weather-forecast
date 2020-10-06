@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styled from "styled-components";
-import CurrentWeather from "./CurrentWeather";
+import CWeather from "./CWeather";
 
 const SearchBar = () => {
   const apiKey = "3c850b0463346d2fffad82b66d5eb561";
   const [city, setCity] = useState("budapest");
-  const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
+  const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
   const [searchTerm, setSearchTerm] = useState("");
   const [error, setError] = useState(null);
 
   const [state, setState] = useState({
     id: null,
-    name: null,
+    name: "Budapest",
     timezone: null,
     main: {},
     weather: [{}],
@@ -40,7 +40,6 @@ const SearchBar = () => {
   }, [url]);
 
   const submitHandler = () => {
-    console.log(searchTerm);
     setCity(searchTerm.toLowerCase());
     setSearchTerm("");
   };
@@ -72,7 +71,7 @@ const SearchBar = () => {
       {error !== null && (
         <Error>Location not found. Please try a different search term.</Error>
       )}
-      <CurrentWeather state={state}></CurrentWeather>
+      <CWeather state={state}></CWeather>
     </React.Fragment>
   );
 };
