@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { convertMpsToKph } from "../util/converters";
 
 const Weather = () => {
   const apiKey = "3c850b0463346d2fffad82b66d5eb561";

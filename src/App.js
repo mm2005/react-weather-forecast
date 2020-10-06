@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
-import CurrentWeather from "./components/CurrentWeather";
+import CWeather from "./components/CWeather";
 import FavoriteLocations from "./components/FavoriteLocations";
 import About from "./components/About";
 import Navbar from "./components/layout/Navbar";
@@ -12,7 +12,7 @@ function App() {
       <Router>
         <Navbar />
         <Switch>
-          <Route exact path="/" component={CurrentWeather} />
+          <Route exact path="/" component={CWeather} />
           <Route path="/favorites" component={FavoriteLocations} />
           <Route path="/about" component={About} />
         </Switch>
