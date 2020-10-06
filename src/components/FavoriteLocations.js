@@ -3,10 +3,10 @@ import axios from "axios";
 import styled from "styled-components";
 import WeatherDetails from "./WeatherDetails";
 
-const CurrentWeather = () => {
+const FavoriteLocations = () => {
   const apiKey = "3c850b0463346d2fffad82b66d5eb561";
   const city = "budapest";
-  const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
+  const url = `https://api.openweathermap.org/data/2.5/weather?appid=${apiKey}&q=${city}&units=metric`;
 
   const [state, setState] = useState({
     id: null,
@@ -45,4 +45,4 @@ const CardHolder = styled.div`
   flex-wrap: wrap;
 `;
 
-export default CurrentWeather;
+export default FavoriteLocations;
