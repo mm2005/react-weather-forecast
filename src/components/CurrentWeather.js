@@ -1,35 +1,8 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React from "react";
 import styled from "styled-components";
 import WeatherDetails from "./WeatherDetails";
 
-const CurrentWeather = () => {
-  const apiKey = "3c850b0463346d2fffad82b66d5eb561";
-  const city = "budapest";
-  const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
-
-  const [state, setState] = useState({
-    id: null,
-    name: null,
-    timezone: null,
-    main: {},
-    weather: [{}],
-    wind: {},
-  });
-
-  useEffect(() => {
-    axios.get(url).then((res) =>
-      setState({
-        id: res.data.id,
-        name: res.data.name,
-        timezone: res.data.timezone,
-        main: res.data.main,
-        weather: res.data.weather,
-        wind: res.data.wind,
-      })
-    );
-  }, [url]);
-
+const CurrentWeather = ({ state }) => {
   return (
     <CardHolder>
       <WeatherDetails state={state} />

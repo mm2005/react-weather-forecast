@@ -4,6 +4,7 @@ import "./App.css";
 import CurrentWeather from "./components/CurrentWeather";
 import About from "./components/About";
 import Navbar from "./components/layout/Navbar";
+import SearchBar from "./components/SearchBar";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route path="/about" component={About} />
         </Switch>
       </Router>
+      <SearchBar></SearchBar>
     </div>
   );
 }
