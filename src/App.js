@@ -9,7 +9,7 @@ import Navbar from "./components/layout/Navbar";
 import SearchBar from "./components/SearchBar";
 
 function App() {
-    const favoriteLocations = useState(["budapest", "london", "paris", "berlin"])
+    const favoriteLocations = useState(["london", "paris", "berlin", "new york"])
   return (
     <div className="App">
         <FavoriteListContext.Provider value={favoriteLocations}>

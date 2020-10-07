@@ -3,16 +3,21 @@ import styled from "styled-components";
 import WeatherDetails from "./WeatherDetails";
 import axios from "axios";
 import FavoriteListContext from "./FavoriteListContext";
+import AddFavorite from "./AddFavorites";
 
 // <<<<<<< HEAD:src/components/CurrentWeather.js
 // const CurrentWeather = ({ state }) => {
 // =======
 const FavoriteLocations = () => {
   const apiKey = "3c850b0463346d2fffad82b66d5eb561";
-  const city = "budapest";
-  const url = `https://api.openweathermap.org/data/2.5/weather?appid=${apiKey}&q=${city}&units=metric`;
+  // const city = "budapest";
+  // const url = `https://api.openweathermap.org/data/2.5/weather?appid=${apiKey}&q=${city}&units=metric`;
   const [favoriteLocations, setFavoriteLocations] = useContext(FavoriteListContext);
   const [favoriteStates, setFavoriteStates] = useState([])
+    
+  function notEmpty(data) {
+      return data.id !== null 
+  }
   
   const [state, setState] = useState({
     id: null,
@@ -38,6 +43,10 @@ const FavoriteLocations = () => {
         )
     );
   }, [favoriteLocations]);
+
+    useEffect(() => {
+        setFavoriteStates([])
+    }, [favoriteLocations])
   
   useEffect(() => {
       setFavoriteStates([...favoriteStates, state])
@@ -45,7 +54,8 @@ const FavoriteLocations = () => {
   
   return (
     <CardHolder>
-        {favoriteStates.map(state => 
+        <AddFavorite location={"budapest"} />
+        {favoriteStates.filter(notEmpty).map(state =>
         <WeatherDetails state={state} />)}
     </CardHolder>
   );
