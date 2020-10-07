@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styled from "styled-components";
-import CWeather from "./CWeather";
+import CurrentWeather from "./CurrentWeather";
 
 const SearchBar = () => {
   const apiKey = "3c850b0463346d2fffad82b66d5eb561";
@@ -12,7 +12,7 @@ const SearchBar = () => {
 
   const [state, setState] = useState({
     id: null,
-    name: "Budapest",
+    name: null,
     timezone: null,
     main: {},
     weather: [{}],
@@ -71,7 +71,7 @@ const SearchBar = () => {
       {error !== null && (
         <Error>Location not found. Please try a different search term.</Error>
       )}
-      <CWeather state={state}></CWeather>
+      <CurrentWeather currentWeather={state}></CurrentWeather>
     </React.Fragment>
   );
 };
