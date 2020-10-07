@@ -2,6 +2,11 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styled from "styled-components";
 import CWeather from "./CWeather";
+import PlacesAutocomplete, {
+  geocodeByAddress,
+  geocodeByPlaceId,
+  getLatLng,
+} from "react-places-autocomplete";
 
 const SearchBar = () => {
   const apiKey = "3c850b0463346d2fffad82b66d5eb561";
@@ -12,11 +17,16 @@ const SearchBar = () => {
 
   const [state, setState] = useState({
     id: null,
-    name: "Budapest",
+    name: null,
     timezone: null,
     main: {},
     weather: [{}],
     wind: {},
+  });
+
+  const [coordinates, setCoordinates] = useState({
+    lat: null,
+    lng: null,
   });
 
   useEffect(() => {
@@ -54,9 +64,16 @@ const SearchBar = () => {
     }
   };
 
+  const handleSelect = async (value) => {
+    const results = await geocodeByAddress(value);
+    const latLng = await getLatLng(results[0]);
+    // setAddress(value);
+    setCoordinates(latLng);
+  };
+
   return (
     <React.Fragment>
-      <Search>
+      {/* <Search>
         <Input
           type="text"
           placeholder="Search.."
@@ -67,7 +84,37 @@ const SearchBar = () => {
         <SearchButton onClick={submitHandler}>
           <i className="fa fa-search"></i>
         </SearchButton>
-      </Search>
+      </Search> */}
+      <PlacesAutocomplete
+        value={searchTerm}
+        onChange={inputFieldHandler}
+        onSelect={handleSelect}
+      >
+        {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+          <div>
+            <p>Latitude: {coordinates.lat}</p>
+            <p>Longitude: {coordinates.lng}</p>
+
+            <input {...getInputProps({ placeholder: "Type address" })} />
+
+            <div>
+              {loading ? <div>...loading</div> : null}
+
+              {suggestions.map((suggestion) => {
+                const style = {
+                  backgroundColor: suggestion.active ? "#41b6e6" : "#fff",
+                };
+
+                return (
+                  <div {...getSuggestionItemProps(suggestion, { style })}>
+                    {suggestion.description}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
+      </PlacesAutocomplete>
       {error !== null && (
         <Error>Location not found. Please try a different search term.</Error>
       )}
