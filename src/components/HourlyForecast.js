@@ -13,7 +13,7 @@ const HourlyForecast = (props) => {
     height: "25px",
   };
 
-  return props.bob.map((item) => (
+  return props.forecasts.map((item) => (
     <div
       key={item.dt}
       style={{

@@ -5,6 +5,34 @@ import DailyForecast from "./DailyForecast";
 import HourlyForecast from "./HourlyForecast";
 
 const Weather = ({ currentWeather }) => {
+  const apiKey = "3c850b0463346d2fffad82b66d5eb561";
+
+  const [dailyForecasts, setDailyForecasts] = useState([]);
+
+  const [hourlyForecasts, setHourlyForecasts] = useState([]);
+
+  const [chosenDay, setChosenDay] = useContext(ChosenDayContext);
+
+  useEffect(() => {
+    const url = `https://api.openweathermap.org/data/2.5/forecast?appid=${apiKey}&units=metric&q=${currentWeather.name}`;
+
+    function isChosenDay(data) {
+      return new Date(data.dt_txt).getDay() === chosenDay;
+    }
+
+    function checkDateTime(data) {
+      return new Date(data.dt_txt).getHours() === 12;
+    }
+
+    axios
+      .get(url)
+      .then((res) => {
+        setHourlyForecasts(res.data.list.filter(isChosenDay));
+        setDailyForecasts(res.data.list.filter(checkDateTime));
+      })
+      .catch((err) => console.log(err));
+  }, [chosenDay, currentWeather.name]);
+
   const gridStyle = {
     display: "grid",
     gridTemplateColumns: "200px 1fr",
@@ -55,32 +83,6 @@ const Weather = ({ currentWeather }) => {
     alignItems: "center",
   };
 
-  const apiKey = "3c850b0463346d2fffad82b66d5eb561";
-
-  function checkDateTime(data) {
-    return new Date(data.dt_txt).getHours() === 12;
-  }
-
-  const [dailyForecasts, setDailyForecasts] = useState([]);
-
-  const [bob, setBob] = useState([]);
-
-  const [chosenDay, setChosenDay] = useContext(ChosenDayContext);
-
-  useEffect(() => {
-    function checkBob(data) {
-      return new Date(data.dt_txt).getDay() === chosenDay;
-    }
-    const url = `https://api.openweathermap.org/data/2.5/forecast?appid=${apiKey}&units=metric&q=${currentWeather.name}`;
-    axios
-      .get(url)
-      .then((res) => {
-        setBob(res.data.list.filter(checkBob));
-        setDailyForecasts(res.data.list.filter(checkDateTime));
-      })
-      .catch((err) => console.log(err));
-  }, [chosenDay, currentWeather.name]);
-
   return (
     <React.Fragment>
       {currentWeather !== undefined && (
@@ -92,7 +94,7 @@ const Weather = ({ currentWeather }) => {
                 <h3 stlye={{ gridArea: "todaybox1" }}>Today</h3>
                 <img
                   src={`http://openweathermap.org/img/wn/${currentWeather.weather[0].icon}@2x.png`}
-                  alt=""
+                  alt="weather"
                   style={{ width: "auto", gridArea: "todaybox2" }}
                 />
                 <div
@@ -108,12 +110,12 @@ const Weather = ({ currentWeather }) => {
               </div>
             </div>
             <div className="box2" style={box2Style}>
-              <DailyForecast state={dailyForecasts} />
+              <DailyForecast forecasts={dailyForecasts} />
             </div>
             <div className="box3" style={box3Style}>
               {dailyForecasts.length === 5 && (
                 <React.Fragment>
-                  <HourlyForecast bob={bob} />
+                  <HourlyForecast forecasts={hourlyForecasts} />
                 </React.Fragment>
               )}
             </div>

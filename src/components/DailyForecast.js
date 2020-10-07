@@ -21,7 +21,6 @@ const DailyForecast = (props) => {
 
   const mouseEnterHandler = (e) => {
     const elem = e.currentTarget;
-    elem.style.cursor = "pointer";
 
     elem.style.borderTop = elem.classList.contains("chosenday")
       ? "5px solid #fc6203"
@@ -39,9 +38,10 @@ const DailyForecast = (props) => {
   const initialStyle = {
     padding: "10px 7px 0 7px",
     borderTop: "5px solid transparent",
+    cursor: "pointer",
   };
 
-  return props.state.map((item) => (
+  return props.forecasts.map((item) => (
     <div
       key={item.dt}
       onClick={clickHandler}
