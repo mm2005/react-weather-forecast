@@ -1,14 +1,12 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React from "react";
 
-const HourlyForecast = () => {
-  const apiKey = "3c850b0463346d2fffad82b66d5eb561";
-
-  const [state, setState] = useState([]);
-
+const HourlyForecast = (props) => {
   return (
     <React.Fragment>
-      <p>Placeholder</p>
+      {props.bob.map((item) => {
+        console.log(item);
+        return <p key={item.dt}>{new Date(item.dt_txt).getHours() + ":00"}</p>;
+      })}
     </React.Fragment>
   );
 };

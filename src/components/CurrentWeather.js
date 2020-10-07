@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import DailyForecast from "./DailyForecast";
 import axios from "axios";
+import DailyForecast from "./DailyForecast";
+import HourlyForecast from "./HourlyForecast";
 
 const Weather = ({ currentWeather }) => {
   const gridStyle = {
@@ -37,19 +38,29 @@ const Weather = ({ currentWeather }) => {
   };
 
   const apiKey = "3c850b0463346d2fffad82b66d5eb561";
-  const limit = "32";
+  const limit = "64";
 
   function checkDateTime(data) {
+    console.log(new Date(data.dt_txt).getDay());
     return new Date(data.dt_txt).getHours() === 12;
   }
 
+  function checkBob(data) {
+    return new Date(data.dt_txt).getDay() === 0;
+  }
+
   const [state, setState] = useState([]);
+
+  const [bob, setBob] = useState([]);
 
   useEffect(() => {
     const url = `https://api.openweathermap.org/data/2.5/forecast?appid=${apiKey}&units=metric&q=${currentWeather.name}&cnt=${limit}`;
     axios
       .get(url)
-      .then((res) => setState(res.data.list.filter(checkDateTime)))
+      .then((res) => {
+        setBob(res.data.list.filter(checkBob));
+        setState(res.data.list.filter(checkDateTime));
+      })
       .catch((err) => console.log(err));
   }, [currentWeather.name]);
 
@@ -57,6 +68,8 @@ const Weather = ({ currentWeather }) => {
     <React.Fragment>
       {currentWeather !== undefined && (
         <React.Fragment>
+          {console.log(state)}
+          {console.log(bob)}
           <h2>{currentWeather.name}</h2>
           <div className="grid-container" style={gridStyle}>
             <div className="box1" style={box1Style}>
@@ -83,9 +96,9 @@ const Weather = ({ currentWeather }) => {
               <DailyForecast state={state} />
             </div>
             <div className="box3">
-              {state.length === 4 && (
+              {state.length === 5 && (
                 <React.Fragment>
-                  <p>Placeholder: {state[0].main.temp}</p>
+                  <HourlyForecast bob={bob} />
                 </React.Fragment>
               )}
             </div>
