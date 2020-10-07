@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
+import { ChosenDayContext } from "./ChosenDayContext";
 import DailyForecast from "./DailyForecast";
 import HourlyForecast from "./HourlyForecast";
 
@@ -55,38 +56,35 @@ const Weather = ({ currentWeather }) => {
   };
 
   const apiKey = "3c850b0463346d2fffad82b66d5eb561";
-  const limit = "64";
 
   function checkDateTime(data) {
-    console.log(new Date(data.dt_txt).getDay());
     return new Date(data.dt_txt).getHours() === 12;
   }
 
-  function checkBob(data) {
-    return new Date(data.dt_txt).getDay() === 0;
-  }
-
-  const [state, setState] = useState([]);
+  const [dailyForecasts, setDailyForecasts] = useState([]);
 
   const [bob, setBob] = useState([]);
 
+  const [chosenDay, setChosenDay] = useContext(ChosenDayContext);
+
   useEffect(() => {
-    const url = `https://api.openweathermap.org/data/2.5/forecast?appid=${apiKey}&units=metric&q=${currentWeather.name}&cnt=${limit}`;
+    function checkBob(data) {
+      return new Date(data.dt_txt).getDay() === chosenDay;
+    }
+    const url = `https://api.openweathermap.org/data/2.5/forecast?appid=${apiKey}&units=metric&q=${currentWeather.name}`;
     axios
       .get(url)
       .then((res) => {
         setBob(res.data.list.filter(checkBob));
-        setState(res.data.list.filter(checkDateTime));
+        setDailyForecasts(res.data.list.filter(checkDateTime));
       })
       .catch((err) => console.log(err));
-  }, [currentWeather.name]);
+  }, [chosenDay, currentWeather.name]);
 
   return (
     <React.Fragment>
       {currentWeather !== undefined && (
         <React.Fragment>
-          {console.log(state)}
-          {console.log(bob)}
           <h2>{currentWeather.name}</h2>
           <div className="grid-container" style={gridStyle}>
             <div className="box1" style={box1Style}>
@@ -110,10 +108,10 @@ const Weather = ({ currentWeather }) => {
               </div>
             </div>
             <div className="box2" style={box2Style}>
-              <DailyForecast state={state} />
+              <DailyForecast state={dailyForecasts} />
             </div>
             <div className="box3" style={box3Style}>
-              {state.length === 5 && (
+              {dailyForecasts.length === 5 && (
                 <React.Fragment>
                   <HourlyForecast bob={bob} />
                 </React.Fragment>

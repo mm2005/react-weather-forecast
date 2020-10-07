@@ -2,6 +2,17 @@ import React from "react";
 import { convertMpsToKph } from "../util/converters";
 
 const HourlyForecast = (props) => {
+  const humidityImage =
+    "https://cdn2.iconfinder.com/data/icons/freecns-cumulus/32/519851-62_Raindrops-512.png";
+  const windSpeedImage =
+    "https://cdn1.iconfinder.com/data/icons/weather-18/512/wind_storm-512.png";
+  const pressureImage =
+    "https://cdn2.iconfinder.com/data/icons/network-sensors/201/pressure-512.png";
+  const imageStyle = {
+    width: "25px",
+    height: "25px",
+  };
+
   return props.bob.map((item) => (
     <div
       key={item.dt}
@@ -19,41 +30,23 @@ const HourlyForecast = (props) => {
       >
         <img
           src={`http://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png`}
-          alt=""
+          alt="weather"
           style={{ width: "50px", height: "50px" }}
         />
         <p>{Math.round(item.main.temp) + "°"}</p>
       </div>
-      <div style={{}}>
-        <img
-          src={
-            "https://cdn2.iconfinder.com/data/icons/freecns-cumulus/32/519851-62_Raindrops-512.png"
-          }
-          alt=""
-          style={{ width: "25px", height: "25px" }}
-        />
+      <div>
+        <img src={humidityImage} alt="humidity" style={imageStyle} />
         <p style={{ color: "lightblue" }}>{item.main.humidity + "%"}</p>
       </div>
       <div>
-        <img
-          src={
-            "https://cdn1.iconfinder.com/data/icons/weather-18/512/wind_storm-512.png"
-          }
-          alt=""
-          style={{ width: "25px", height: "25px" }}
-        />
+        <img src={windSpeedImage} alt="windspeed" style={imageStyle} />
         <p style={{ color: "gray", fontSize: "0.8rem" }}>
           {convertMpsToKph(item.wind.speed) + " km/h"}
         </p>
       </div>
       <div>
-        <img
-          src={
-            "https://cdn2.iconfinder.com/data/icons/network-sensors/201/pressure-512.png"
-          }
-          alt=""
-          style={{ width: "25px", height: "25px" }}
-        />
+        <img src={pressureImage} alt="pressure" style={imageStyle} />
         <p style={{ color: "gray", fontSize: "0.8rem" }}>
           {item.main.pressure + " hPa"}
         </p>

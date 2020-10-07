@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styled from "styled-components";
+import { ChosenDayProvider } from "./ChosenDayContext";
 import CurrentWeather from "./CurrentWeather";
 
 const SearchBar = () => {
@@ -55,24 +56,26 @@ const SearchBar = () => {
   };
 
   return (
-    <React.Fragment>
-      <Search>
-        <Input
-          type="text"
-          placeholder="Search.."
-          value={searchTerm}
-          onChange={inputFieldHandler}
-          onKeyDown={keyDownHandler}
-        />
-        <SearchButton onClick={submitHandler}>
-          <i className="fa fa-search"></i>
-        </SearchButton>
-      </Search>
-      {error !== null && (
-        <Error>Location not found. Please try a different search term.</Error>
-      )}
-      <CurrentWeather currentWeather={state}></CurrentWeather>
-    </React.Fragment>
+    <ChosenDayProvider>
+      <React.Fragment>
+        <Search>
+          <Input
+            type="text"
+            placeholder="Search.."
+            value={searchTerm}
+            onChange={inputFieldHandler}
+            onKeyDown={keyDownHandler}
+          />
+          <SearchButton onClick={submitHandler}>
+            <i className="fa fa-search"></i>
+          </SearchButton>
+        </Search>
+        {error !== null && (
+          <Error>Location not found. Please try a different search term.</Error>
+        )}
+        <CurrentWeather currentWeather={state}></CurrentWeather>
+      </React.Fragment>
+    </ChosenDayProvider>
   );
 };
 
