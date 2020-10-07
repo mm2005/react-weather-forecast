@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styled from "styled-components";
 import CurrentWeather from "./CurrentWeather";
+import SearchAutocomplete from "./SearchAutocomplete";
 
 const SearchBar = () => {
   const apiKey = "3c850b0463346d2fffad82b66d5eb561";
@@ -67,6 +68,7 @@ const SearchBar = () => {
         <SearchButton onClick={submitHandler}>
           <i className="fa fa-search"></i>
         </SearchButton>
+        <SearchAutocomplete searchedCity={searchTerm}></SearchAutocomplete>
       </Search>
       {error !== null && (
         <Error>Location not found. Please try a different search term.</Error>
