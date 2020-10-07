@@ -21,6 +21,10 @@ const SearchBar = () => {
   });
 
   useEffect(() => {
+    console.log(city);
+  }, [city]);
+
+  useEffect(() => {
     axios
       .get(url)
       .then(
@@ -68,7 +72,10 @@ const SearchBar = () => {
         <SearchButton onClick={submitHandler}>
           <i className="fa fa-search"></i>
         </SearchButton>
-        <SearchAutocomplete searchedCity={searchTerm}></SearchAutocomplete>
+        <SearchAutocomplete
+          searchedCity={searchTerm}
+          setSearchedCity={setCity}
+        ></SearchAutocomplete>
       </Search>
       {error !== null && (
         <Error>Location not found. Please try a different search term.</Error>
