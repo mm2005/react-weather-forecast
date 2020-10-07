@@ -12,38 +12,41 @@ const FavoriteLocations = () => {
   const city = "budapest";
   const url = `https://api.openweathermap.org/data/2.5/weather?appid=${apiKey}&q=${city}&units=metric`;
   const [favoriteLocations, setFavoriteLocations] = useContext(FavoriteListContext);
+  const [favoriteStates, setFavoriteStates] = useState([])
   
-  const [state, setState] = useState([{
+  const [state, setState] = useState({
     id: null,
     name: null,
     timezone: null,
     main: {},
     weather: [{}],
     wind: {},
-  }]);
-
+  });
+  
   useEffect(() => {
     favoriteLocations.map(location =>
         axios.get(`https://api.openweathermap.org/data/2.5/weather?appid=${apiKey}&q=${location}&units=metric`)
             .then((res) =>
-            setState([...state,
-                {
+            setState({
                 id: res.data.id,
                 name: res.data.name,
                 timezone: res.data.timezone,
                 main: res.data.main,
                 weather: res.data.weather,
                 wind: res.data.wind,
-            }])
+            })
         )
     );
-  }, []);
-
+  }, [favoriteLocations]);
+  
+  useEffect(() => {
+      setFavoriteStates([...favoriteStates, state])
+  }, [state])
+  
   return (
     <CardHolder>
-        {console.log(state)}
-      {state.map(location => 
-          <WeatherDetails state={location} />)}
+        {favoriteStates.map(state => 
+        <WeatherDetails state={state} />)}
     </CardHolder>
   );
 };
