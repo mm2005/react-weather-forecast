@@ -8,18 +8,35 @@ const Weather = ({ currentWeather }) => {
     display: "grid",
     gridTemplateColumns: "200px 1fr",
     gridTemplateRows: "1fr 2fr",
+    gridTemplateAreas: `
+    'box1 box2'
+    'box3 box3'`,
     height: "auto",
     marginTop: "20px",
     padding: "60px",
   };
 
   const box1Style = {
+    gridArea: "box1",
     lineHeight: "1.5rem",
     fontSize: "1.15rem",
     padding: "15px 15px 25px 15px",
+    border: "2px solid lightgray",
+    borderRight: "0",
   };
 
   const box2Style = {
+    gridArea: "box2",
+    display: "flex",
+    padding: "20px",
+    textAlign: "center",
+    justifyContent: "space-around",
+    border: "2px solid lightgray",
+    borderLeft: "0",
+  };
+
+  const box3Style = {
+    gridArea: "box3",
     display: "flex",
     padding: "20px",
     textAlign: "center",
@@ -95,7 +112,7 @@ const Weather = ({ currentWeather }) => {
             <div className="box2" style={box2Style}>
               <DailyForecast state={state} />
             </div>
-            <div className="box3">
+            <div className="box3" style={box3Style}>
               {state.length === 5 && (
                 <React.Fragment>
                   <HourlyForecast bob={bob} />
