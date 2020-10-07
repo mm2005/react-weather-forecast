@@ -8,9 +8,15 @@ const SearchAutocomplete = (props) => {
   const [state, setState] = useState({
     suggestions: [],
   });
+  const [visibility, setVisibility] = useState(true);
+
+  const DropdownStyle = {
+    display: visibility ? "block" : "none",
+  };
 
   useEffect(() => {
     if (props.searchedCity !== "") {
+      setVisibility(true);
       axios
         .get(autocompleteUrl)
         .then((res) =>
@@ -24,29 +30,44 @@ const SearchAutocomplete = (props) => {
     }
   }, [props.searchedCity, autocompleteUrl]);
 
+  const clickHandler = (city) => {
+    props.setSearchedCity(city);
+    props.setInputText("");
+    setVisibility(false);
+  };
+
   return (
     <React.Fragment>
       {state.suggestions !== undefined &&
-        state.suggestions.map((suggestion) =>
-          suggestion.countryCode === "USA" ? (
-            <div
-              key={suggestion.locationId}
-              onClick={() => props.setSearchedCity(suggestion.address.city)}
-            >
-              {suggestion.address.city}, {suggestion.address.state},
-              {suggestion.address.country}
-            </div>
-          ) : (
-            <div
-              key={suggestion.locationId}
-              onClick={() => props.setSearchedCity(suggestion.address.city)}
-            >
-              {suggestion.address.city}, {suggestion.address.country}
-            </div>
-          )
-        )}
+        state.suggestions.map((suggestion) => (
+          <Dropdown
+            style={DropdownStyle}
+            key={suggestion.locationId}
+            onClick={() => {
+              clickHandler(suggestion.address.city);
+            }}
+          >
+            {suggestion.countryCode === "USA" ? (
+              <div>
+                {suggestion.address.city}, {suggestion.address.state},{" "}
+                {suggestion.address.country}
+              </div>
+            ) : (
+              <div>
+                {suggestion.address.city}, {suggestion.address.country}
+              </div>
+            )}
+          </Dropdown>
+        ))}
     </React.Fragment>
   );
 };
+
+const Dropdown = styled.div`
+  font-size: 15px;
+  font-family: "Gill Sans", sans-serif;
+  padding: 5px;
+  cursor: pointer;
+`;
 
 export default SearchAutocomplete;
