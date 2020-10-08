@@ -42,8 +42,9 @@ const Weather = ({ currentWeather }) => {
     'box1 box2'
     'box3 box3'`,
     height: "auto",
-    marginTop: "20px",
+    // marginTop: "20px",
     padding: "60px",
+    paddingTop: "20px",
   };
 
   const box1Style = {
@@ -85,7 +86,7 @@ const Weather = ({ currentWeather }) => {
   };
 
   return (
-    <div>
+    <div className="weather-box">
       <h2 style={{ marginLeft: "60px", display: "flex" }}>
         {currentWeather.name}
         <AddFavorite location={currentWeather.name} />

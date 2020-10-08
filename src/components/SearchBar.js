@@ -63,7 +63,7 @@ const SearchBar = () => {
   return (
     <ChosenDayProvider>
       <React.Fragment>
-        <Search>
+        <Search className="search">
           <Input
             type="text"
             placeholder="Search.."
@@ -111,9 +111,8 @@ const Input = styled.input`
 
 const Search = styled.div`
   width: 400px;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   margin: auto;
-  z-index: 2;
+  position: relative;
 `;
 
 const Error = styled.div`
