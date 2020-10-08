@@ -4,6 +4,7 @@ import { ChosenDayContext } from "./ChosenDayContext";
 import DailyForecast from "./DailyForecast";
 import HourlyForecast from "./HourlyForecast";
 import AddFavorite from "./AddFavorites";
+import { convertMpsToKph } from "../util/converters";
 
 const Weather = ({ currentWeather }) => {
   const apiKey = "3c850b0463346d2fffad82b66d5eb561";
@@ -22,12 +23,13 @@ const Weather = ({ currentWeather }) => {
     }
 
     function checkDateTime(data) {
-      return new Date(data.dt_txt).getHours() === 12;
+      return new Date(data.dt_txt).getHours() === 21;
     }
 
     axios
       .get(url)
       .then((res) => {
+        console.log(res.data);
         setHourlyForecasts(res.data.list.filter(isChosenDay));
         setDailyForecasts(res.data.list.filter(checkDateTime));
       })
@@ -36,7 +38,7 @@ const Weather = ({ currentWeather }) => {
 
   const gridStyle = {
     display: "grid",
-    gridTemplateColumns: "220px 1fr",
+    gridTemplateColumns: "380px 1fr",
     gridTemplateRows: "1fr 2fr",
     gridTemplateAreas: `
     'box1 box2'
@@ -85,8 +87,13 @@ const Weather = ({ currentWeather }) => {
     alignItems: "center",
   };
 
+  const infoStyle = {
+    fontSize: "0.8rem",
+  };
+
   return (
     <div className="weather-box">
+      {console.log(currentWeather)}
       <h2 style={{ marginLeft: "60px", display: "flex" }}>
         {currentWeather.name}
         <AddFavorite location={currentWeather.name} />
@@ -94,12 +101,26 @@ const Weather = ({ currentWeather }) => {
       <div className="grid-container" style={gridStyle}>
         <div className="box1" style={box1Style}>
           <div style={lilGridStyle}>
-            <h3 stlye={{ gridArea: "todaybox1" }}>Now</h3>
-            <img
-              src={`http://openweathermap.org/img/wn/${currentWeather.weather[0].icon}@2x.png`}
-              alt="weather"
-              style={{ width: "auto", gridArea: "todaybox2" }}
-            />
+            <h2 style={{ gridArea: "todaybox1", textDecoration: "none" }}>
+              Now
+            </h2>
+            <div
+              style={{
+                gridArea: "todaybox2",
+                lineHeight: "0",
+                color: "white",
+                alignSelf: "start",
+              }}
+            >
+              <img
+                src={`http://openweathermap.org/img/wn/${currentWeather.weather[0].icon}@2x.png`}
+                alt="weather"
+                style={{ width: "auto" }}
+              />
+              <h3 style={{ textAlign: "center" }}>
+                {Math.round(currentWeather.main.temp)}°
+              </h3>
+            </div>
             <div
               style={{
                 gridArea: "todaybox3",
@@ -107,12 +128,38 @@ const Weather = ({ currentWeather }) => {
                 lineHeight: "2rem",
               }}
             >
-              <h3>{Math.round(currentWeather.main.temp)}°</h3>
+              <p
+                style={{
+                  fontWeight: "700",
+                  fontSize: "1rem",
+                }}
+              >
+                {currentWeather.weather[0].description}
+              </p>
+              {/* <h3>{Math.round(currentWeather.main.temp)}°</h3> */}
+              <p style={infoStyle}>
+                Humidity{" "}
+                <span style={{ fontWeight: "700", fontSize: "0.9rem" }}>
+                  {currentWeather.main.humidity}%
+                </span>
+              </p>
+              <p style={infoStyle}>
+                Wind{" "}
+                <span style={{ fontWeight: "700", fontSize: "0.9rem" }}>
+                  {String(convertMpsToKph(currentWeather.wind.speed))} km/h
+                </span>
+              </p>
+              <p style={infoStyle}>
+                Pressure{" "}
+                <span style={{ fontWeight: "700", fontSize: "0.9rem" }}>
+                  {currentWeather.main.pressure} kPa
+                </span>
+              </p>
             </div>
           </div>
-          <p style={{ textAlign: "center" }}>
+          {/* <p style={{ textAlign: "center" }}>
             {currentWeather.weather[0].description}
-          </p>
+          </p> */}
         </div>
         <div className="box2" style={box2Style}>
           <DailyForecast forecasts={dailyForecasts} />

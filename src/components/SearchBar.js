@@ -45,6 +45,10 @@ const SearchBar = () => {
       });
   }, [url]);
 
+  useEffect(() => {
+    axios.get(url).then((res) => console.log(res));
+  }, [url]);
+
   const submitHandler = () => {
     setCity(searchTerm.toLowerCase());
     setSearchTerm("");
