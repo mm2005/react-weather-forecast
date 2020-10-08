@@ -23,7 +23,7 @@ const Weather = ({ currentWeather }) => {
     }
 
     function checkDateTime(data) {
-      return new Date(data.dt_txt).getHours() === 21;
+      return new Date(data.dt_txt).getHours() === 15;
     }
 
     axios
