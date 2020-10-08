@@ -17,9 +17,12 @@ function Navbar() {
 }
 
 const Header = styled.header`
-  background-color: #bdd7f0;
+  background-image: url('https://jooinn.com/images/cloudy-58.png');
+  background-size: 100% auto;
+  background-repeat: no-repeat;
   text-align: center;
   padding: 15px;
+  height:100px;
   &:hover {
     background-color: #cde4fa;
   }
