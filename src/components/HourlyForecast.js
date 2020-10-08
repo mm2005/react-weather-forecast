@@ -13,6 +13,10 @@ const HourlyForecast = (props) => {
     height: "25px",
   };
 
+  const loadHandler = (e) => {
+    e.currentTarget.classList.add("hourly-forecast");
+  };
+
   return props.forecasts.map((item) => (
     <div
       key={item.dt}
@@ -21,6 +25,7 @@ const HourlyForecast = (props) => {
         flexDirection: "column",
         justifyContent: "space-around",
       }}
+      onLoad={loadHandler}
     >
       <h4 style={{ padding: "20px 0" }}>
         {new Date(item.dt_txt).getHours() + ":00"}

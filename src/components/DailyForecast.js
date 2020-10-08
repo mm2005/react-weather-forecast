@@ -22,7 +22,7 @@ const DailyForecast = (props) => {
   const mouseEnterHandler = (e) => {
     const elem = e.currentTarget;
 
-    elem.classList.add("element");
+    elem.classList.add("hovered-day");
 
     elem.style.borderTop = elem.classList.contains("chosenday")
       ? "5px solid #fc6203"
@@ -32,7 +32,7 @@ const DailyForecast = (props) => {
   const mouseLeaveHandler = (e) => {
     const elem = e.currentTarget;
 
-    elem.classList.remove("element");
+    elem.classList.remove("hovered-day");
 
     elem.style.borderTop = elem.classList.contains("chosenday")
       ? "5px solid orange"

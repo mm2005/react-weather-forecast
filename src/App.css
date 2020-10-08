@@ -10,13 +10,13 @@
   color: white;
 }
 
-.element {
-  animation-name: pulse;
+.hovered-day {
+  animation-name: pop;
   animation-duration: 100ms;
   animation-iteration-count: 1;
 }
 
-@keyframes pulse {
+@keyframes pop {
   0% {
     border-radius: 5%;
     border-width: 1px;
@@ -24,6 +24,21 @@
   100% {
     border-radius: 0%;
     border-width: 5px;
+  }
+}
+
+.hourly-forecast div {
+  animation-name: comeout;
+  animation-duration: 800ms;
+  animation-iteration-count: 1;
+}
+
+@keyframes comeout {
+  0% {
+    opacity: 0.3;
+  }
+  100% {
+    opacity: 1;
   }
 }
 

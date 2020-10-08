@@ -38,7 +38,7 @@ const Weather = ({ currentWeather }) => {
 
   const gridStyle = {
     display: "grid",
-    gridTemplateColumns: "380px 1fr",
+    gridTemplateColumns: "340px 1fr",
     gridTemplateRows: "1fr 2fr",
     gridTemplateAreas: `
     'box1 box2'
