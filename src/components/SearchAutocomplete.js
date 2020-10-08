@@ -36,6 +36,14 @@ const SearchAutocomplete = (props) => {
     setVisibility(false);
   };
 
+  const mouseEnterHandler = (e) => {
+    e.currentTarget.style.color = "lightblue";
+  };
+
+  const mouseLeaveHandler = (e) => {
+    e.currentTarget.style.color = "black";
+  };
+
   return (
     <div
       className="dropdown"
@@ -57,12 +65,18 @@ const SearchAutocomplete = (props) => {
             }}
           >
             {suggestion.countryCode === "USA" ? (
-              <div>
+              <div
+                onMouseEnter={mouseEnterHandler}
+                onMouseLeave={mouseLeaveHandler}
+              >
                 {suggestion.address.city}, {suggestion.address.state},{" "}
                 {suggestion.address.country}
               </div>
             ) : (
-              <div>
+              <div
+                onMouseEnter={mouseEnterHandler}
+                onMouseLeave={mouseLeaveHandler}
+              >
                 {suggestion.address.city}, {suggestion.address.country}
               </div>
             )}
