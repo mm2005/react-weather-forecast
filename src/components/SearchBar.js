@@ -22,10 +22,6 @@ const SearchBar = () => {
   });
 
   useEffect(() => {
-    console.log(city);
-  }, [city]);
-
-  useEffect(() => {
     axios
       .get(url)
       .then(
@@ -94,24 +90,24 @@ const SearchBar = () => {
 };
 
 const SearchButton = styled.button`
-  width: 30px;
-  height: 30px;
+  width: 40px;
+  height: 40px;
   text-align: center;
-  font-size: 15px;
-  background-color: #bdd7f0;
+  font-size: 18px;
+  background-color: #b5c4d6;
   color: #fff;
-  border: 1px solid #bdd7f0;
+  border: 1px solid #b5c4d6;
   outline: none;
   cursor: pointer;
 `;
 
 const Input = styled.input`
-  width: 370px;
-  height: 30px;
+  width: 360px;
+  height: 40px;
   font-size: 15px;
   outline: none;
-  border: 3px solid #bdd7f0;
-  padding: 5px;
+  border: 2px solid #b5c4d6;
+  padding: 10px;
 `;
 
 const Search = styled.div`
