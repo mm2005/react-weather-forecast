@@ -3,6 +3,7 @@ import axios from "axios";
 import styled from "styled-components";
 import { ChosenDayProvider } from "./ChosenDayContext";
 import CurrentWeather from "./CurrentWeather";
+import SearchAutocomplete from "./SearchAutocomplete";
 
 const SearchBar = () => {
   const apiKey = "3c850b0463346d2fffad82b66d5eb561";
@@ -19,6 +20,10 @@ const SearchBar = () => {
     weather: [{}],
     wind: {},
   });
+
+  useEffect(() => {
+    console.log(city);
+  }, [city]);
 
   useEffect(() => {
     axios
@@ -69,6 +74,11 @@ const SearchBar = () => {
           <SearchButton onClick={submitHandler}>
             <i className="fa fa-search"></i>
           </SearchButton>
+          <SearchAutocomplete
+            searchedCity={searchTerm}
+            setSearchedCity={setCity}
+            setInputText={setSearchTerm}
+          ></SearchAutocomplete>
         </Search>
         {error !== null && (
           <Error>Location not found. Please try a different search term.</Error>
@@ -83,28 +93,25 @@ const SearchButton = styled.button`
   width: 30px;
   height: 30px;
   text-align: center;
-  font-size: 20px;
-  background-color: #00b4cc;
+  font-size: 15px;
+  background-color: #bdd7f0;
   color: #fff;
-  border: 1px solid #00b4cc;
-  border-radius: 0 5px 5px 0;
+  border: 1px solid #bdd7f0;
+  outline: none;
   cursor: pointer;
 `;
 
 const Input = styled.input`
-  width: 200px;
+  width: 370px;
   height: 30px;
   font-size: 15px;
-  border-radius: 5px 0 0 5px;
   outline: none;
-  border: 3px solid #00b4cc;
+  border: 3px solid #bdd7f0;
 `;
 
 const Search = styled.div`
-  width: 100%;
-  position: relative;
-  display: flex;
-  padding: 5px;
+  width: 400px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
 `;
 
 const Error = styled.div`
