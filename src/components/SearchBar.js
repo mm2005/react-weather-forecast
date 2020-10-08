@@ -66,7 +66,7 @@ const SearchBar = () => {
         <Search className="search">
           <Input
             type="text"
-            placeholder="Search.."
+            placeholder="Search..."
             value={searchTerm}
             onChange={inputFieldHandler}
             onKeyDown={keyDownHandler}
@@ -107,6 +107,7 @@ const Input = styled.input`
   font-size: 15px;
   outline: none;
   border: 3px solid #bdd7f0;
+  padding: 5px;
 `;
 
 const Search = styled.div`
