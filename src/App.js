@@ -21,7 +21,6 @@ function App() {
         </Switch>
       </Router>
         </FavoriteListContext.Provider>
-      <SearchBar></SearchBar>
     </div>
   );
 }

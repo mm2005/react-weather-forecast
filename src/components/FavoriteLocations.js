@@ -48,7 +48,7 @@ const FavoriteLocations = () => {
   
   useEffect(() => {
       setFavoriteStates([...favoriteStates, state]
-          .sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0)))
+          .sort(Compare))
   }, [state])
   
   return (
