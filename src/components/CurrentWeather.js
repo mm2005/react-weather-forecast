@@ -42,8 +42,9 @@ const Weather = ({ currentWeather }) => {
     'box1 box2'
     'box3 box3'`,
     height: "auto",
-    marginTop: "20px",
+    // marginTop: "20px",
     padding: "60px",
+    paddingTop: "20px",
   };
 
   const box1Style = {
@@ -85,8 +86,10 @@ const Weather = ({ currentWeather }) => {
   };
 
   return (
-    <div>
-      <h2 style={{ marginLeft: "60px" }}>{currentWeather.name}</h2>
+    <div className="weather-box">
+      <h2 style={{ marginLeft: "80px", marginTop: "60px" }}>
+        {currentWeather.name}
+      </h2>
       <AddFavorite location={currentWeather.name} />
       <div className="grid-container" style={gridStyle}>
         <div className="box1" style={box1Style}>

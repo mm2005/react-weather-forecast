@@ -37,7 +37,15 @@ const SearchAutocomplete = (props) => {
   };
 
   return (
-    <React.Fragment>
+    <div
+      className="dropdown"
+      style={{
+        position: "absolute",
+        zIndex: 1,
+        boxShadow: "0px 8px 16px 0px rgba(0, 0, 0, 0.2)",
+        width: "inherit",
+      }}
+    >
       {state.suggestions !== undefined &&
         state.suggestions.map((suggestion) => (
           <Dropdown
@@ -59,7 +67,7 @@ const SearchAutocomplete = (props) => {
             )}
           </Dropdown>
         ))}
-    </React.Fragment>
+    </div>
   );
 };
 

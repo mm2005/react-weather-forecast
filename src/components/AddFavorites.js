@@ -14,7 +14,7 @@ const AddFavorite = (props) => {
 
   return (
     <div>
-      <button onClick={AddLocation} style={{ marginLeft: "60px" }}>
+      <button onClick={AddLocation} style={{ marginLeft: "80px" }}>
         Add to favorites
       </button>
     </div>
