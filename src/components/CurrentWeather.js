@@ -12,7 +12,7 @@ const Weather = ({ currentWeather }) => {
 
   const [hourlyForecasts, setHourlyForecasts] = useState([]);
 
-  const [chosenDay, setChosenDay] = useContext(ChosenDayContext);
+  const chosenDay = useContext(ChosenDayContext)[0];
 
   useEffect(() => {
     const url = `https://api.openweathermap.org/data/2.5/forecast?appid=${apiKey}&units=metric&q=${currentWeather.name}`;
@@ -85,46 +85,44 @@ const Weather = ({ currentWeather }) => {
   };
 
   return (
-    <React.Fragment>
-      {
-        <React.Fragment>
-          <h2>{currentWeather.name}</h2>
-          <AddFavorite location={currentWeather.name} />
-          <div className="grid-container" style={gridStyle}>
-            <div className="box1" style={box1Style}>
-              <div style={lilGridStyle}>
-                <h3 stlye={{ gridArea: "todaybox1" }}>Today</h3>
-                <img
-                  src={`http://openweathermap.org/img/wn/${currentWeather.weather[0].icon}@2x.png`}
-                  alt="weather"
-                  style={{ width: "auto", gridArea: "todaybox2" }}
-                />
-                <div
-                  style={{
-                    gridArea: "todaybox3",
-                    justifySelf: "start",
-                    lineHeight: "2rem",
-                  }}
-                >
-                  <h3>{Math.round(currentWeather.main.temp)}°</h3>
-                  <p>11°</p>
-                </div>
-              </div>
-            </div>
-            <div className="box2" style={box2Style}>
-              <DailyForecast forecasts={dailyForecasts} />
-            </div>
-            <div className="box3" style={box3Style}>
-              {dailyForecasts.length === 5 && (
-                <React.Fragment>
-                  <HourlyForecast forecasts={hourlyForecasts} />
-                </React.Fragment>
-              )}
+    <div>
+      <h2 style={{ marginLeft: "60px" }}>{currentWeather.name}</h2>
+      <AddFavorite location={currentWeather.name} />
+      <div className="grid-container" style={gridStyle}>
+        <div className="box1" style={box1Style}>
+          <div style={lilGridStyle}>
+            <h3 stlye={{ gridArea: "todaybox1" }}>Now</h3>
+            <img
+              src={`http://openweathermap.org/img/wn/${currentWeather.weather[0].icon}@2x.png`}
+              alt="weather"
+              style={{ width: "auto", gridArea: "todaybox2" }}
+            />
+            <div
+              style={{
+                gridArea: "todaybox3",
+                justifySelf: "start",
+                lineHeight: "2rem",
+              }}
+            >
+              <h3>{Math.round(currentWeather.main.temp)}°</h3>
             </div>
           </div>
-        </React.Fragment>
-      }
-    </React.Fragment>
+          <p style={{ textAlign: "center" }}>
+            {currentWeather.weather[0].description}
+          </p>
+        </div>
+        <div className="box2" style={box2Style}>
+          <DailyForecast forecasts={dailyForecasts} />
+        </div>
+        <div className="box3" style={box3Style}>
+          {dailyForecasts.length === 5 && (
+            <React.Fragment>
+              <HourlyForecast forecasts={hourlyForecasts} />
+            </React.Fragment>
+          )}
+        </div>
+      </div>
+    </div>
   );
 };
 
