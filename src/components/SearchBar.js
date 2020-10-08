@@ -62,7 +62,7 @@ const SearchBar = () => {
         <Search className="search">
           <Input
             type="text"
-            placeholder="Search.."
+            placeholder="Search..."
             value={searchTerm}
             onChange={inputFieldHandler}
             onKeyDown={keyDownHandler}
