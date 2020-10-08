@@ -4,6 +4,7 @@ import WeatherDetails from "./WeatherDetails";
 import axios from "axios";
 import FavoriteListContext from "./FavoriteListContext";
 import AddFavorite from "./AddFavorites";
+import Compare from "../util/ListSorter";
 
 // <<<<<<< HEAD:src/components/CurrentWeather.js
 // const CurrentWeather = ({ state }) => {
@@ -29,6 +30,7 @@ const FavoriteLocations = () => {
   });
   
   useEffect(() => {
+    setFavoriteStates([])
     favoriteLocations.map(location =>
         axios.get(`https://api.openweathermap.org/data/2.5/weather?appid=${apiKey}&q=${location}&units=metric`)
             .then((res) =>
@@ -43,13 +45,10 @@ const FavoriteLocations = () => {
         )
     );
   }, [favoriteLocations]);
-
-    useEffect(() => {
-        setFavoriteStates([])
-    }, [favoriteLocations])
   
   useEffect(() => {
-      setFavoriteStates([...favoriteStates, state])
+      setFavoriteStates([...favoriteStates, state]
+          .sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0)))
   }, [state])
   
   return (
