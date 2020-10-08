@@ -44,6 +44,7 @@ const SearchAutocomplete = (props) => {
         zIndex: 1,
         boxShadow: "0px 8px 16px 0px rgba(0, 0, 0, 0.2)",
         width: "inherit",
+        background: "white",
       }}
     >
       {state.suggestions !== undefined &&
