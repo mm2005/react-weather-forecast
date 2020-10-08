@@ -10,6 +10,23 @@
   color: white;
 }
 
+.element {
+  animation-name: pulse;
+  animation-duration: 100ms;
+  animation-iteration-count: 1;
+}
+
+@keyframes pulse {
+  0% {
+    border-radius: 5%;
+    border-width: 1px;
+  }
+  100% {
+    border-radius: 0%;
+    border-width: 5px;
+  }
+}
+
 /* .App {
   width: 1920px;
   height: 1080px;
