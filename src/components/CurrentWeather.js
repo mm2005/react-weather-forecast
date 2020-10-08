@@ -3,6 +3,8 @@ import axios from "axios";
 import { ChosenDayContext } from "./ChosenDayContext";
 import DailyForecast from "./DailyForecast";
 import HourlyForecast from "./HourlyForecast";
+import AddFavorite from "./AddFavorites";
+
 
 const Weather = ({ currentWeather }) => {
   const apiKey = "3c850b0463346d2fffad82b66d5eb561";
@@ -85,42 +87,43 @@ const Weather = ({ currentWeather }) => {
 
   return (
     <React.Fragment>
-      {currentWeather !== undefined && (
-        <React.Fragment>
-          <h2>{currentWeather.name}</h2>
-          <div className="grid-container" style={gridStyle}>
-            <div className="box1" style={box1Style}>
-              <div style={lilGridStyle}>
-                <h3 stlye={{ gridArea: "todaybox1" }}>Today</h3>
-                <img
-                  src={`http://openweathermap.org/img/wn/${currentWeather.weather[0].icon}@2x.png`}
-                  alt="weather"
-                  style={{ width: "auto", gridArea: "todaybox2" }}
-                />
-                <div
-                  style={{
-                    gridArea: "todaybox3",
-                    justifySelf: "start",
-                    lineHeight: "2rem",
-                  }}
-                >
-                  <h3>{Math.round(currentWeather.main.temp)}°</h3>
-                  <p>11°</p>
+      {(
+          <React.Fragment>
+            <h2>{currentWeather.name}</h2>
+            <AddFavorite location={currentWeather.name}/>
+            <div className="grid-container" style={gridStyle}>
+              <div className="box1" style={box1Style}>
+                <div style={lilGridStyle}>
+                  <h3 stlye={{gridArea: "todaybox1"}}>Today</h3>
+                  <img
+                      src={`http://openweathermap.org/img/wn/${currentWeather.weather[0].icon}@2x.png`}
+                      alt="weather"
+                      style={{width: "auto", gridArea: "todaybox2"}}
+                  />
+                  <div
+                      style={{
+                        gridArea: "todaybox3",
+                        justifySelf: "start",
+                        lineHeight: "2rem",
+                      }}
+                  >
+                    <h3>{Math.round(currentWeather.main.temp)}°</h3>
+                    <p>11°</p>
+                  </div>
                 </div>
               </div>
+              <div className="box2" style={box2Style}>
+                <DailyForecast forecasts={dailyForecasts}/>
+              </div>
+              <div className="box3" style={box3Style}>
+                {dailyForecasts.length === 5 && (
+                    <React.Fragment>
+                      <HourlyForecast forecasts={hourlyForecasts}/>
+                    </React.Fragment>
+                )}
+              </div>
             </div>
-            <div className="box2" style={box2Style}>
-              <DailyForecast forecasts={dailyForecasts} />
-            </div>
-            <div className="box3" style={box3Style}>
-              {dailyForecasts.length === 5 && (
-                <React.Fragment>
-                  <HourlyForecast forecasts={hourlyForecasts} />
-                </React.Fragment>
-              )}
-            </div>
-          </div>
-        </React.Fragment>
+          </React.Fragment>
       )}
     </React.Fragment>
   );
