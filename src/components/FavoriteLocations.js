@@ -53,7 +53,6 @@ const FavoriteLocations = () => {
   
   return (
     <CardHolder>
-        <AddFavorite location={"budapest"} />
         {favoriteStates.filter(notEmpty).map(state =>
         <WeatherDetails state={state} />)}
     </CardHolder>
