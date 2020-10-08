@@ -35,6 +35,15 @@ const DailyForecast = (props) => {
       : "5px solid transparent";
   };
 
+  const loadHandler = (e) => {
+    const elem = e.currentTarget;
+
+    if (parseInt(elem.dataset.dayofweek) === chosenDay) {
+      elem.classList.add("chosenday");
+      elem.style.borderTop = "5px solid orange";
+    }
+  };
+
   const initialStyle = {
     padding: "10px 7px 0 7px",
     borderTop: "5px solid transparent",
@@ -47,6 +56,7 @@ const DailyForecast = (props) => {
       onClick={clickHandler}
       onMouseEnter={mouseEnterHandler}
       onMouseLeave={mouseLeaveHandler}
+      onLoad={loadHandler}
       style={initialStyle}
       data-dayofweek={new Date(item.dt_txt).getDay()}
     >
