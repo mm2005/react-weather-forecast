@@ -1,5 +1,5 @@
 ﻿import React, { useContext } from "react";
-import { ChosenDayContext } from "./ChosenDayContext";
+import { ChosenDayContext } from "../context/ChosenDayContext";
 import { weekdays } from "../util/daysOfWeek";
 
 const DailyForecast = (props) => {

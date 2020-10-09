@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
-import { ChosenDayContext } from "./ChosenDayContext";
+import { ChosenDayContext } from "../context/ChosenDayContext";
 import DailyForecast from "./DailyForecast";
 import HourlyForecast from "./HourlyForecast";
 import AddFavorite from "./AddFavorites";

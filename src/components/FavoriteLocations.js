@@ -2,7 +2,7 @@
 import styled from "styled-components";
 import WeatherDetails from "./WeatherDetails";
 import axios from "axios";
-import FavoriteListContext from "./FavoriteListContext";
+import FavoriteListContext from "../context/FavoriteListContext";
 import Compare from "../util/ListSorter";
 
 const FavoriteLocations = () => {
