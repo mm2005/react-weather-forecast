@@ -71,7 +71,7 @@ const SearchBar = () => {
             onChange={inputFieldHandler}
             onKeyDown={keyDownHandler}
           />
-          <SearchButton onClick={submitHandler}>
+          <SearchButton onClick={submitHandler} style={{ fontSize: "16px" }}>
             <i className="fa fa-search"></i>
           </SearchButton>
           <SearchAutocomplete
@@ -108,6 +108,7 @@ const Input = styled.input`
   outline: none;
   border: 2px solid #b5c4d6;
   padding: 10px;
+  margin-top: 0;
 `;
 
 const Search = styled.div`
