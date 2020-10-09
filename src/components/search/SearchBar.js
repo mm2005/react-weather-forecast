@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styled from "styled-components";
-import { ChosenDayProvider } from "../context/ChosenDayContext";
-import CurrentWeather from "./CurrentWeather";
+import { ChosenDayProvider } from "../../context/ChosenDayContext";
+import CurrentWeather from "../CurrentWeather";
 import SearchAutocomplete from "./SearchAutocomplete";
 
 const SearchBar = () => {

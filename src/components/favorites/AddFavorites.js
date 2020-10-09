@@ -1,5 +1,5 @@
 ﻿import React, { useState, useEffect, useContext } from "react";
-import FavoriteListContext from "../context/FavoriteListContext";
+import FavoriteListContext from "../../context/FavoriteListContext";
 
 const AddFavorite = (props) => {
   const [favoriteLocations, setFavoriteLocations] = useContext(

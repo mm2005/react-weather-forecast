@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
-import FavoriteLocations from "./components/FavoriteLocations";
+import FavoriteLocations from "./components/favorites/FavoriteLocations";
 import FavoriteListContext from "./context/FavoriteListContext";
 import Navbar from "./components/layout/Navbar";
-import SearchBar from "./components/SearchBar";
+import SearchBar from "./components/search/SearchBar";
 
 function App() {
   const favoriteLocations = useState([]);

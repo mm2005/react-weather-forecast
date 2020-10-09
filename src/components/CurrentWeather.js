@@ -3,7 +3,7 @@ import axios from "axios";
 import { ChosenDayContext } from "../context/ChosenDayContext";
 import DailyForecast from "./DailyForecast";
 import HourlyForecast from "./HourlyForecast";
-import AddFavorite from "./AddFavorites";
+import AddFavorite from "./favorites/AddFavorites";
 import { convertMpsToKph } from "../util/converters";
 
 const Weather = ({ currentWeather }) => {
