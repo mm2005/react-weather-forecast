@@ -44,7 +44,6 @@ const Weather = ({ currentWeather }) => {
     'box1 box2'
     'box3 box3'`,
     height: "auto",
-    // marginTop: "20px",
     padding: "60px",
     paddingTop: "20px",
   };
@@ -136,7 +135,6 @@ const Weather = ({ currentWeather }) => {
               >
                 {currentWeather.weather[0].description}
               </p>
-              {/* <h3>{Math.round(currentWeather.main.temp)}°</h3> */}
               <p style={infoStyle}>
                 Humidity{" "}
                 <span style={{ fontWeight: "700", fontSize: "0.9rem" }}>
@@ -157,9 +155,6 @@ const Weather = ({ currentWeather }) => {
               </p>
             </div>
           </div>
-          {/* <p style={{ textAlign: "center" }}>
-            {currentWeather.weather[0].description}
-          </p> */}
         </div>
         <div className="box2" style={box2Style}>
           <DailyForecast forecasts={dailyForecasts} />

@@ -41,24 +41,3 @@
     opacity: 1;
   }
 }
-
-/* .App {
-  width: 1920px;
-  height: 1080px;
-  display: block;
-  position: absolute;
-  background-size: 1920px 1080px;
-} */
-
-/* .App::after {
-  content: "";
-  background-image: url("https://upload.wikimedia.org/wikipedia/commons/8/86/Operation_Crossroads_Baker_%28wide%29.jpg");
-  background-size: 1920px 1080px;
-  opacity: 0.5;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  position: absolute;
-  z-index: -1;
-} */
