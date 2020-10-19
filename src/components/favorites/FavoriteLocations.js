@@ -3,7 +3,7 @@ import styled from "styled-components";
 import WeatherDetails from "../WeatherDetails";
 import axios from "axios";
 import FavoriteListContext from "../../context/FavoriteListContext";
-import Compare from "../../util/ListSorter";
+import Compare from "../../util/listSorter";
 
 const FavoriteLocations = () => {
   const apiKey = "3c850b0463346d2fffad82b66d5eb561";
