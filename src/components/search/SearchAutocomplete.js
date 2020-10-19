@@ -8,11 +8,6 @@ const SearchAutocomplete = (props) => {
   const [state, setState] = useState({
     suggestions: [],
   });
-  const [visibility, setVisibility] = useState(true);
-
-  const DropdownStyle = {
-    display: visibility ? "block" : "none",
-  };
 
   useEffect(() => {
     if (props.searchedCity !== "") {
@@ -30,6 +25,11 @@ const SearchAutocomplete = (props) => {
     }
   }, [props.searchedCity, autocompleteUrl]);
 
+  const setVisibility = (isVisible) => {
+    const dropdownContainer = document.querySelector(".dropdown");
+    dropdownContainer.style.display = isVisible ? "block" : "none";
+  };
+
   const clickHandler = (city) => {
     props.setSearchedCity(city);
     props.setInputText("");
@@ -45,48 +45,42 @@ const SearchAutocomplete = (props) => {
   };
 
   return (
-    <div
-      className="dropdown"
-      style={{
-        position: "absolute",
-        zIndex: 1,
-        boxShadow: "0px 8px 16px 0px rgba(0, 0, 0, 0.2)",
-        width: "inherit",
-        background: "white",
-      }}
-    >
+    <DropdownContainer className="dropdown">
       {state.suggestions !== undefined &&
         state.suggestions.map((suggestion) => (
-          <Dropdown
-            style={DropdownStyle}
+          <DropdownItem
             key={suggestion.locationId}
-            onClick={() => {
+            onClick={(e) => {
               clickHandler(suggestion.address.city);
             }}
+            onMouseEnter={mouseEnterHandler}
+            onMouseLeave={mouseLeaveHandler}
           >
             {suggestion.countryCode === "USA" ? (
-              <div
-                onMouseEnter={mouseEnterHandler}
-                onMouseLeave={mouseLeaveHandler}
-              >
+              <React.Fragment>
                 {suggestion.address.city}, {suggestion.address.state},{" "}
                 {suggestion.address.country}
-              </div>
+              </React.Fragment>
             ) : (
-              <div
-                onMouseEnter={mouseEnterHandler}
-                onMouseLeave={mouseLeaveHandler}
-              >
+              <React.Fragment>
                 {suggestion.address.city}, {suggestion.address.country}
-              </div>
+              </React.Fragment>
             )}
-          </Dropdown>
+          </DropdownItem>
         ))}
-    </div>
+    </DropdownContainer>
   );
 };
 
-const Dropdown = styled.div`
+const DropdownContainer = styled.div`
+  position: absolute;
+  z-index: 1;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  width: inherit;
+  background: white;
+`;
+
+const DropdownItem = styled.div`
   font-size: 15px;
   font-family: "Gill Sans", sans-serif;
   padding: 5px;
