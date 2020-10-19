@@ -4,7 +4,7 @@ import "./App.css";
 import Navbar from "./components/layout/Navbar";
 import FavoriteListContext from "./context/FavoriteListContext";
 import FavoriteLocations from "./components/favorites/FavoriteLocations";
-import SearchBar from "./components/search/SearchBar";
+import Search from "./components/search/Search";
 
 function App() {
   const favoriteLocations = useState([]);
@@ -14,7 +14,7 @@ function App() {
         <Router>
           <Navbar />
           <Switch>
-            <Route exact path="/" component={SearchBar} />
+            <Route exact path="/" component={Search} />
             <Route path="/favorites" component={FavoriteLocations} />
           </Switch>
         </Router>

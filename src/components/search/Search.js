@@ -5,7 +5,7 @@ import { ChosenDayProvider } from "../../context/ChosenDayContext";
 import CurrentWeather from "../CurrentWeather";
 import SearchAutocomplete from "./SearchAutocomplete";
 
-const SearchBar = () => {
+const Search = () => {
   const apiKey = "3c850b0463346d2fffad82b66d5eb561";
   const [city, setCity] = useState("budapest");
   const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
@@ -41,17 +41,9 @@ const SearchBar = () => {
       });
   }, [url]);
 
-  useEffect(() => {
-    axios.get(url).then((res) => console.log(res));
-  }, [url]);
-
   const submitHandler = () => {
     setCity(searchTerm.toLowerCase());
     setSearchTerm("");
-  };
-
-  const inputFieldHandler = (event) => {
-    setSearchTerm(event.target.value);
   };
 
   const keyDownHandler = (event) => {
@@ -60,26 +52,30 @@ const SearchBar = () => {
     }
   };
 
+  const inputFieldChangeHandler = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
   return (
     <ChosenDayProvider>
       <React.Fragment>
-        <Search className="search">
+        <SearchBar className="search">
           <Input
             type="text"
             placeholder="Search..."
             value={searchTerm}
-            onChange={inputFieldHandler}
+            onChange={inputFieldChangeHandler}
             onKeyDown={keyDownHandler}
           />
-          <SearchButton onClick={submitHandler} style={{ fontSize: "16px" }}>
-            <i className="fa fa-search"></i>
+          <SearchButton onClick={submitHandler}>
+            <i className="fa fa-search" />
           </SearchButton>
           <SearchAutocomplete
             searchedCity={searchTerm}
             setSearchedCity={setCity}
             setInputText={setSearchTerm}
-          ></SearchAutocomplete>
-        </Search>
+          />
+        </SearchBar>
         {error !== null && (
           <Error>Location not found. Please try a different search term.</Error>
         )}
@@ -89,16 +85,10 @@ const SearchBar = () => {
   );
 };
 
-const SearchButton = styled.button`
-  width: 40px;
-  height: 40px;
-  text-align: center;
-  font-size: 18px;
-  background-color: #b5c4d6;
-  color: #fff;
-  border: 1px solid #b5c4d6;
-  outline: none;
-  cursor: pointer;
+const SearchBar = styled.div`
+  width: 400px;
+  margin: auto;
+  position: relative;
 `;
 
 const Input = styled.input`
@@ -111,10 +101,16 @@ const Input = styled.input`
   margin-top: 0;
 `;
 
-const Search = styled.div`
-  width: 400px;
-  margin: auto;
-  position: relative;
+const SearchButton = styled.button`
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  font-size: 15px;
+  background-color: #b5c4d6;
+  color: #fff;
+  border: 1px solid #b5c4d6;
+  outline: none;
+  cursor: pointer;
 `;
 
 const Error = styled.div`
@@ -124,4 +120,4 @@ const Error = styled.div`
   margin: 10px 40px;
 `;
 
-export default SearchBar;
+export default Search;
