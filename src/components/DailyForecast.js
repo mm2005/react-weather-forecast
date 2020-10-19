@@ -1,6 +1,6 @@
 ﻿import React, { useContext } from "react";
 import { ChosenDayContext } from "../context/ChosenDayContext";
-import { weekdays } from "../util/daysOfWeek";
+import { parseDay, parseDayOfWeek } from "../util/daysOfWeek";
 
 const DailyForecast = (props) => {
   const [chosenDay, setChosenDay] = useContext(ChosenDayContext);
@@ -9,13 +9,13 @@ const DailyForecast = (props) => {
     setChosenDay(parseInt(e.currentTarget.dataset.dayofweek));
 
     const elem = e.currentTarget;
-    const currentChosenDayElement = document.querySelector(".chosenday");
+    const currentChosenDayElement = document.querySelector(".chosen-day");
 
     if (currentChosenDayElement) {
       currentChosenDayElement.style.borderTop = "5px solid transparent";
-      currentChosenDayElement.classList.remove("chosenday");
+      currentChosenDayElement.classList.remove("chosen-day");
     }
-    elem.classList.add("chosenday");
+    elem.classList.add("chosen-day");
     elem.style.borderTop = "5px solid orange";
   };
 
@@ -24,7 +24,7 @@ const DailyForecast = (props) => {
 
     elem.classList.add("hovered-day");
 
-    elem.style.borderTop = elem.classList.contains("chosenday")
+    elem.style.borderTop = elem.classList.contains("chosen-day")
       ? "5px solid #fc6203"
       : "5px solid #fcd303";
   };
@@ -34,7 +34,7 @@ const DailyForecast = (props) => {
 
     elem.classList.remove("hovered-day");
 
-    elem.style.borderTop = elem.classList.contains("chosenday")
+    elem.style.borderTop = elem.classList.contains("chosen-day")
       ? "5px solid orange"
       : "5px solid transparent";
   };
@@ -43,7 +43,7 @@ const DailyForecast = (props) => {
     const elem = e.currentTarget;
 
     if (parseInt(elem.dataset.dayofweek) === chosenDay) {
-      elem.classList.add("chosenday");
+      elem.classList.add("chosen-day");
       elem.style.borderTop = "5px solid orange";
     }
   };
@@ -62,9 +62,9 @@ const DailyForecast = (props) => {
       onMouseLeave={mouseLeaveHandler}
       onLoad={loadHandler}
       style={initialStyle}
-      data-dayofweek={new Date(item.dt_txt).getDay()}
+      data-dayofweek={parseDayOfWeek(item.dt_txt)}
     >
-      <h4>{weekdays[new Date(item.dt_txt).getDay()]}</h4>
+      <h4>{parseDay(item.dt_txt)}</h4>
       <img
         src={`http://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png`}
         alt=""

@@ -9,7 +9,7 @@ const HourlyForecast = (props) => {
   const pressureImage =
     "https://cdn2.iconfinder.com/data/icons/network-sensors/201/pressure-512.png";
 
-  const imageStyle = {
+  const smallIconStyle = {
     width: "25px",
     height: "25px",
   };
@@ -42,17 +42,17 @@ const HourlyForecast = (props) => {
         <p>{Math.round(item.main.temp) + "°"}</p>
       </div>
       <div>
-        <img src={humidityImage} alt="humidity" style={imageStyle} />
+        <img src={humidityImage} alt="humidity" style={smallIconStyle} />
         <p style={{ color: "lightblue" }}>{item.main.humidity + "%"}</p>
       </div>
       <div>
-        <img src={windSpeedImage} alt="windspeed" style={imageStyle} />
+        <img src={windSpeedImage} alt="windspeed" style={smallIconStyle} />
         <p style={{ color: "gray", fontSize: "0.8rem" }}>
           {convertMpsToKph(item.wind.speed) + " km/h"}
         </p>
       </div>
       <div>
-        <img src={pressureImage} alt="pressure" style={imageStyle} />
+        <img src={pressureImage} alt="pressure" style={smallIconStyle} />
         <p style={{ color: "gray", fontSize: "0.8rem" }}>
           {item.main.pressure + " hPa"}
         </p>
