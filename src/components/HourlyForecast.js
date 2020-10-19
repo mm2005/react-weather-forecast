@@ -8,6 +8,7 @@ const HourlyForecast = (props) => {
     "https://cdn1.iconfinder.com/data/icons/weather-18/512/wind_storm-512.png";
   const pressureImage =
     "https://cdn2.iconfinder.com/data/icons/network-sensors/201/pressure-512.png";
+
   const imageStyle = {
     width: "25px",
     height: "25px",

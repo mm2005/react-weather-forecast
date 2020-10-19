@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styled from "styled-components";
 import { ChosenDayProvider } from "../../context/ChosenDayContext";
-import CurrentWeather from "../CurrentWeather";
+import Weather from "../Weather";
 import SearchAutocomplete from "./SearchAutocomplete";
 
 const Search = () => {
@@ -79,7 +79,7 @@ const Search = () => {
         {error !== null && (
           <Error>Location not found. Please try a different search term.</Error>
         )}
-        <CurrentWeather currentWeather={state}></CurrentWeather>
+        <Weather currentWeather={state} />
       </React.Fragment>
     </ChosenDayProvider>
   );

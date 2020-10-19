@@ -9,6 +9,8 @@ import { convertMpsToKph } from "../util/converters";
 const Weather = ({ currentWeather }) => {
   const apiKey = "3c850b0463346d2fffad82b66d5eb561";
 
+  const hourOfDay = 15;
+
   const [dailyForecasts, setDailyForecasts] = useState([]);
 
   const [hourlyForecasts, setHourlyForecasts] = useState([]);
@@ -22,16 +24,16 @@ const Weather = ({ currentWeather }) => {
       return new Date(data.dt_txt).getDay() === chosenDay;
     }
 
-    function checkDateTime(data) {
-      return new Date(data.dt_txt).getHours() === 15;
+    // TODO: sort out hard-coded values
+    function getWeatherForHour(data) {
+      return new Date(data.dt_txt).getHours() === hourOfDay;
     }
 
     axios
       .get(url)
       .then((res) => {
-        console.log(res.data);
         setHourlyForecasts(res.data.list.filter(isChosenDay));
-        setDailyForecasts(res.data.list.filter(checkDateTime));
+        setDailyForecasts(res.data.list.filter(getWeatherForHour));
       })
       .catch((err) => console.log(err));
   }, [chosenDay, currentWeather.name]);
@@ -75,7 +77,7 @@ const Weather = ({ currentWeather }) => {
     justifyContent: "space-evenly",
   };
 
-  const lilGridStyle = {
+  const currentWeatherGridStyle = {
     display: "grid",
     gridTemplateColumns: "1fr 1fr",
     gridTemplateRows: "0.5fr 0.5fr",
@@ -99,7 +101,7 @@ const Weather = ({ currentWeather }) => {
       </h2>
       <div className="grid-container" style={gridStyle}>
         <div className="box1" style={box1Style}>
-          <div style={lilGridStyle}>
+          <div style={currentWeatherGridStyle}>
             <h2 style={{ gridArea: "todaybox1", textDecoration: "none" }}>
               Now
             </h2>
