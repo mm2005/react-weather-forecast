@@ -9,6 +9,8 @@ import { convertMpsToKph } from "../util/converters";
 const Weather = ({ currentWeather }) => {
   const apiKey = "3c850b0463346d2fffad82b66d5eb561";
 
+  const hourOfDay = 15;
+
   const [dailyForecasts, setDailyForecasts] = useState([]);
 
   const [hourlyForecasts, setHourlyForecasts] = useState([]);
@@ -22,16 +24,16 @@ const Weather = ({ currentWeather }) => {
       return new Date(data.dt_txt).getDay() === chosenDay;
     }
 
-    function checkDateTime(data) {
-      return new Date(data.dt_txt).getHours() === 15;
+    // TODO: sort out hard-coded values
+    function getWeatherForHour(data) {
+      return new Date(data.dt_txt).getHours() === hourOfDay;
     }
 
     axios
       .get(url)
       .then((res) => {
-        console.log(res.data);
         setHourlyForecasts(res.data.list.filter(isChosenDay));
-        setDailyForecasts(res.data.list.filter(checkDateTime));
+        setDailyForecasts(res.data.list.filter(getWeatherForHour));
       })
       .catch((err) => console.log(err));
   }, [chosenDay, currentWeather.name]);
@@ -75,13 +77,13 @@ const Weather = ({ currentWeather }) => {
     justifyContent: "space-evenly",
   };
 
-  const lilGridStyle = {
+  const currentWeatherGridStyle = {
     display: "grid",
     gridTemplateColumns: "1fr 1fr",
     gridTemplateRows: "0.5fr 0.5fr",
     gridTemplateAreas: `
-      'todaybox1 .'
-      'todaybox2 todaybox3'`,
+      'currentbox1 .'
+      'currentbox2 currentbox3'`,
     justifyItems: "center",
     alignItems: "center",
   };
@@ -90,24 +92,25 @@ const Weather = ({ currentWeather }) => {
     fontSize: "0.8rem",
   };
 
+  const infoSpanStyle = {
+    fontWeight: "700",
+    fontSize: "0.9rem",
+  };
+
   return (
     <div className="weather-box">
-      {console.log(currentWeather)}
       <h2 style={{ marginLeft: "60px", display: "flex" }}>
         {currentWeather.name}
         <AddFavorite location={currentWeather.name} />
       </h2>
       <div className="grid-container" style={gridStyle}>
         <div className="box1" style={box1Style}>
-          <div style={lilGridStyle}>
-            <h2 style={{ gridArea: "todaybox1", textDecoration: "none" }}>
-              Now
-            </h2>
+          <div className="current-weather" style={currentWeatherGridStyle}>
+            <h2 style={{ gridArea: "currentbox1" }}>Now</h2>
             <div
               style={{
-                gridArea: "todaybox2",
+                gridArea: "currentbox2",
                 lineHeight: "0",
-                color: "white",
                 alignSelf: "start",
               }}
             >
@@ -122,7 +125,7 @@ const Weather = ({ currentWeather }) => {
             </div>
             <div
               style={{
-                gridArea: "todaybox3",
+                gridArea: "currentbox3",
                 justifySelf: "start",
                 lineHeight: "2rem",
               }}
@@ -137,19 +140,19 @@ const Weather = ({ currentWeather }) => {
               </p>
               <p style={infoStyle}>
                 Humidity{" "}
-                <span style={{ fontWeight: "700", fontSize: "0.9rem" }}>
+                <span style={infoSpanStyle}>
                   {currentWeather.main.humidity}%
                 </span>
               </p>
               <p style={infoStyle}>
                 Wind{" "}
-                <span style={{ fontWeight: "700", fontSize: "0.9rem" }}>
+                <span style={infoSpanStyle}>
                   {String(convertMpsToKph(currentWeather.wind.speed))} km/h
                 </span>
               </p>
               <p style={infoStyle}>
                 Pressure{" "}
-                <span style={{ fontWeight: "700", fontSize: "0.9rem" }}>
+                <span style={infoSpanStyle}>
                   {currentWeather.main.pressure} kPa
                 </span>
               </p>

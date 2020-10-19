@@ -31,11 +31,7 @@ const AddFavorite = (props) => {
   };
 
   return (
-    <i
-      onClick={AddLocation}
-      className={`fa fa-${icon}`}
-      style={ButtonStyle}
-    ></i>
+    <i onClick={AddLocation} className={`fa fa-${icon}`} style={ButtonStyle} />
   );
 };
 
