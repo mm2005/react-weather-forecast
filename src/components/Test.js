@@ -6,7 +6,7 @@ const Test = () => {
 
   useEffect(() => {
     axios
-      .get("https://localhost:44336/weatherforecast")
+      .get("https://localhost:44336/api/weatherforecast/oslo")
       .then((res) => setState(res.data));
   }, []);
 
