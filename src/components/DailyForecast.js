@@ -56,22 +56,22 @@ const DailyForecast = (props) => {
 
   return props.forecasts.map((item) => (
     <div
-      key={item.dt}
+      key={item.exactDate}
       onClick={clickHandler}
       onMouseEnter={mouseEnterHandler}
       onMouseLeave={mouseLeaveHandler}
       onLoad={loadHandler}
       style={initialStyle}
-      data-dayofweek={parseDayOfWeek(item.dt_txt)}
+      data-dayofweek={parseDayOfWeek(item.date)}
     >
-      <h4>{parseDay(item.dt_txt)}</h4>
+      <h4>{parseDay(item.date)}</h4>
       <img
-        src={`http://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png`}
+        src={`http://openweathermap.org/img/wn/${item.icon}@2x.png`}
         alt=""
         style={{ width: "auto" }}
       />
-      <p>{Math.round(item.main.temp) + "°"}</p>
-      <p>{item.weather[0].description}</p>
+      <p>{Math.round(item.temp) + "°"}</p>
+      <p>{item.description}</p>
     </div>
   ));
 };

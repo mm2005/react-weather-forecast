@@ -33,6 +33,7 @@ const Search = () => {
           description: res.data.description,
           temp: res.data.temp,
           pressure: res.data.pressure,
+          humidity: res.data.humidity,
           wind: res.data.wind,
           icon: res.data.icon,
         });

@@ -7,8 +7,6 @@ import AddFavorite from "./favorites/AddFavorites";
 import { convertMpsToKph } from "../util/converters";
 
 const Weather = ({ currentWeather }) => {
-  const apiKey = "3c850b0463346d2fffad82b66d5eb561";
-
   const hourOfDay = 15;
 
   const [dailyForecasts, setDailyForecasts] = useState([]);
@@ -18,22 +16,22 @@ const Weather = ({ currentWeather }) => {
   const chosenDay = useContext(ChosenDayContext)[0];
 
   useEffect(() => {
-    const url = `https://api.openweathermap.org/data/2.5/forecast?appid=${apiKey}&units=metric&q=${currentWeather.city}`;
+    const url = `https://localhost:44336/api/therealweatherforecast/${currentWeather.city}`;
 
     function isChosenDay(data) {
-      return new Date(data.dt_txt).getDay() === chosenDay;
+      return new Date(data.date).getDay() === chosenDay;
     }
 
     // TODO: sort out hard-coded values
     function getWeatherForHour(data) {
-      return new Date(data.dt_txt).getHours() === hourOfDay;
+      return new Date(data.date).getHours() === hourOfDay;
     }
 
     axios
       .get(url)
       .then((res) => {
-        setHourlyForecasts(res.data.list.filter(isChosenDay));
-        setDailyForecasts(res.data.list.filter(getWeatherForHour));
+        setHourlyForecasts(res.data.filter(isChosenDay));
+        setDailyForecasts(res.data.filter(getWeatherForHour));
       })
       .catch((err) => console.log(err));
   }, [chosenDay, currentWeather.city]);
