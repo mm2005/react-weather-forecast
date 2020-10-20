@@ -15,7 +15,6 @@ const Search = () => {
   const [state, setState] = useState({
     id: null,
     name: null,
-    timezone: null,
     main: {},
     weather: [{}],
     wind: {},
@@ -29,7 +28,6 @@ const Search = () => {
           setState({
             id: res.data.id,
             name: res.data.name,
-            timezone: res.data.timezone,
             main: res.data.main,
             weather: res.data.weather,
             wind: res.data.wind,
