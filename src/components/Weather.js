@@ -18,7 +18,7 @@ const Weather = ({ currentWeather }) => {
   const chosenDay = useContext(ChosenDayContext)[0];
 
   useEffect(() => {
-    const url = `https://api.openweathermap.org/data/2.5/forecast?appid=${apiKey}&units=metric&q=${currentWeather.name}`;
+    const url = `https://api.openweathermap.org/data/2.5/forecast?appid=${apiKey}&units=metric&q=${currentWeather.city}`;
 
     function isChosenDay(data) {
       return new Date(data.dt_txt).getDay() === chosenDay;
@@ -36,7 +36,7 @@ const Weather = ({ currentWeather }) => {
         setDailyForecasts(res.data.list.filter(getWeatherForHour));
       })
       .catch((err) => console.log(err));
-  }, [chosenDay, currentWeather.name]);
+  }, [chosenDay, currentWeather.city]);
 
   const gridStyle = {
     display: "grid",
@@ -100,8 +100,9 @@ const Weather = ({ currentWeather }) => {
   return (
     <div className="weather-box">
       <h2 style={{ marginLeft: "60px", display: "flex" }}>
-        {currentWeather.name}
-        <AddFavorite location={currentWeather.name} />
+        {console.log(currentWeather)}
+        {currentWeather.city}
+        <AddFavorite location={currentWeather.city} />
       </h2>
       <div className="grid-container" style={gridStyle}>
         <div className="box1" style={box1Style}>
@@ -115,12 +116,12 @@ const Weather = ({ currentWeather }) => {
               }}
             >
               <img
-                src={`http://openweathermap.org/img/wn/${currentWeather.weather[0].icon}@2x.png`}
+                src={`http://openweathermap.org/img/wn/${currentWeather.icon}@2x.png`}
                 alt="weather"
                 style={{ width: "auto" }}
               />
               <h3 style={{ textAlign: "center" }}>
-                {Math.round(currentWeather.main.temp)}°
+                {Math.round(currentWeather.temp)}°
               </h3>
             </div>
             <div
@@ -136,25 +137,21 @@ const Weather = ({ currentWeather }) => {
                   fontSize: "1rem",
                 }}
               >
-                {currentWeather.weather[0].description}
+                {currentWeather.description}
               </p>
               <p style={infoStyle}>
                 Humidity{" "}
-                <span style={infoSpanStyle}>
-                  {currentWeather.main.humidity}%
-                </span>
+                <span style={infoSpanStyle}>{currentWeather.humidity}%</span>
               </p>
               <p style={infoStyle}>
                 Wind{" "}
                 <span style={infoSpanStyle}>
-                  {String(convertMpsToKph(currentWeather.wind.speed))} km/h
+                  {String(convertMpsToKph(currentWeather.wind))} km/h
                 </span>
               </p>
               <p style={infoStyle}>
                 Pressure{" "}
-                <span style={infoSpanStyle}>
-                  {currentWeather.main.pressure} kPa
-                </span>
+                <span style={infoSpanStyle}>{currentWeather.pressure} kPa</span>
               </p>
             </div>
           </div>

@@ -6,34 +6,37 @@ import Weather from "../Weather";
 import SearchAutocomplete from "./SearchAutocomplete";
 
 const Search = () => {
-  const apiKey = "3c850b0463346d2fffad82b66d5eb561";
   const [city, setCity] = useState("budapest");
-  const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+  const url = `https://localhost:44336/api/weatherforecast/${city}`;
   const [searchTerm, setSearchTerm] = useState("");
   const [error, setError] = useState(null);
 
   const [state, setState] = useState({
     id: null,
-    name: null,
-    main: {},
-    weather: [{}],
-    wind: {},
+    city: null,
+    description: null,
+    temp: null,
+    pressure: null,
+    humidity: null,
+    wind: null,
+    icon: null,
   });
 
   useEffect(() => {
     axios
       .get(url)
-      .then(
-        (res) =>
-          setState({
-            id: res.data.id,
-            name: res.data.name,
-            main: res.data.main,
-            weather: res.data.weather,
-            wind: res.data.wind,
-          }),
-        setError(null)
-      )
+      .then((res) => {
+        console.log(res.data);
+        setState({
+          id: res.data.id,
+          city: res.data.city,
+          description: res.data.description,
+          temp: res.data.temp,
+          pressure: res.data.pressure,
+          wind: res.data.wind,
+          icon: res.data.icon,
+        });
+      }, setError(null))
       .catch((err) => {
         setError(err);
       });
