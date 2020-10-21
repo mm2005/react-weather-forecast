@@ -7,7 +7,7 @@ import SearchAutocomplete from "./SearchAutocomplete";
 
 const Search = () => {
   const [city, setCity] = useState("budapest");
-  const url = `https://localhost:44336/api/weatherforecast/${city}`;
+  const url = `https://localhost:44336/api/currentweather/${city}`;
   const [searchTerm, setSearchTerm] = useState("");
   const [error, setError] = useState(null);
 
