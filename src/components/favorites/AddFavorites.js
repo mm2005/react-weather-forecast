@@ -1,5 +1,6 @@
 ﻿import React, { useState, useEffect, useContext } from "react";
 import FavoriteListContext from "../../context/FavoriteListContext";
+import axios from "axios";
 
 const AddFavorite = (props) => {
   const [favoriteLocations, setFavoriteLocations] = useContext(
@@ -15,10 +16,8 @@ const AddFavorite = (props) => {
   }, [props.location, favoriteLocations]);
 
   const AddLocation = () => {
-    if (!favoriteLocations.includes(props.location)) {
-      setIcon("check");
-      setFavoriteLocations([...favoriteLocations, props.location]);
-    }
+    axios.post(`https://localhost:44336/api/favorite/${props.location}`)
+        .then(r => console.log("test", r))
   };
 
   const ButtonStyle = {

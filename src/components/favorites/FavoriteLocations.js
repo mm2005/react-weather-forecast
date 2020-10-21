@@ -2,58 +2,20 @@
 import styled from "styled-components";
 import WeatherDetails from "../WeatherDetails";
 import axios from "axios";
-import FavoriteListContext from "../../context/FavoriteListContext";
-import Compare from "../../util/listSorter";
 
 const FavoriteLocations = () => {
-  const apiKey = "3c850b0463346d2fffad82b66d5eb561";
 
-  const favoriteLocations = useContext(FavoriteListContext)[0];
-  const [favoriteStates, setFavoriteStates] = useState([]);
-
-  function notEmpty(data) {
-    return data.id !== null;
-  }
-
-  const [state, setState] = useState({
-    id: null,
-    name: null,
-    timezone: null,
-    main: {},
-    weather: [{}],
-    wind: {},
-  });
-
-  useEffect(() => {
-    setFavoriteStates([]);
-    favoriteLocations.map((location) =>
-      axios
-        .get(
-          `https://api.openweathermap.org/data/2.5/weather?appid=${apiKey}&q=${location}&units=metric`
-        )
-        .then((res) =>
-          setState({
-            id: res.data.id,
-            name: res.data.name,
-            timezone: res.data.timezone,
-            main: res.data.main,
-            weather: res.data.weather,
-            wind: res.data.wind,
-          })
-        )
-    );
-  }, [favoriteLocations]);
-
-  useEffect(() => {
-    setFavoriteStates([...favoriteStates, state].sort(Compare));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state]);
+    const [state, setState] = useState([]);
+    
+    useEffect( () => {
+        axios.get("https://localhost:44336/api/favorite/favorites")
+            .then((res) => 
+            setState(res.data))
+    })
 
   return (
     <CardHolder>
-      {favoriteStates.filter(notEmpty).map((state) => (
-        <WeatherDetails state={state} />
-      ))}
+        {state.map(item => <WeatherDetails item={item} key={item.id} />)}
     </CardHolder>
   );
 };

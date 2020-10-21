@@ -1,8 +1,8 @@
 import React from "react";
 import { convertMpsToKph } from "../util/converters";
 
-const WeatherDetails = ({ state }) => {
-  const imageSource = `http://openweathermap.org/img/wn/${state.weather[0].icon}@2x.png`;
+const WeatherDetails = ({ item }) => {
+  const imageSource = `http://openweathermap.org/img/wn/${item.icon}@2x.png`;
 
   const cardStyle = {
     textAlign: "center",
@@ -16,12 +16,12 @@ const WeatherDetails = ({ state }) => {
       <div className="card" style={cardStyle}>
         <div style={{ lineHeight: "1.5rem", fontSize: "1.15rem" }}>
           <img src={imageSource} alt="" style={{ width: "auto" }} />
-          <h4>{state.name}</h4>
-          <h3>{Math.round(state.main.temp)}°</h3>
+          <h4>{item.city}</h4>
+          <h3>{Math.round(item.temp)}°</h3>
           <div style={{ padding: "20px", fontSize: "0.85rem" }}>
-            <p>Humidity: {state.main.humidity}%</p>
-            <p>Pressure: {state.main.pressure} hPa</p>
-            <p>Wind: {convertMpsToKph(state.wind.speed)} km/h</p>
+            <p>Humidity: {item.humidity}%</p>
+            <p>Pressure: {item.pressure} hPa</p>
+            <p>Wind: {convertMpsToKph(item.wind)} km/h</p>
           </div>
         </div>
       </div>
