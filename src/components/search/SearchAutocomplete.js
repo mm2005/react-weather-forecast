@@ -3,8 +3,7 @@ import axios from "axios";
 import styled from "styled-components";
 
 const SearchAutocomplete = (props) => {
-  const autocompleteApiKey = "jzxwrjVpz590MChJ0KjlrLnwg_syikNAPYB0tvSemLE";
-  const autocompleteUrl = `https://autocomplete.geocoder.ls.hereapi.com/6.2/suggest.json?query=${props.searchedCity}&maxresults=5&resultType=city&language=en&apikey=${autocompleteApiKey}`;
+  const autocompleteUrl = `https://localhost:44336/api/autocomplete/${props.searchedCity}`;
   const [state, setState] = useState({
     suggestions: [],
   });
@@ -15,8 +14,8 @@ const SearchAutocomplete = (props) => {
       axios
         .get(autocompleteUrl)
         .then((res) =>
-          setState({
-            suggestions: res.data.suggestions,
+            setState({
+            suggestions: res.data,
           })
         )
         .catch((err) => {
@@ -49,21 +48,21 @@ const SearchAutocomplete = (props) => {
       {state.suggestions !== undefined &&
         state.suggestions.map((suggestion) => (
           <DropdownItem
-            key={suggestion.locationId}
+            key={suggestion.city}
             onClick={(e) => {
-              clickHandler(suggestion.address.city);
+              clickHandler(suggestion.city);
             }}
             onMouseEnter={mouseEnterHandler}
             onMouseLeave={mouseLeaveHandler}
           >
             {suggestion.countryCode === "USA" ? (
               <React.Fragment>
-                {suggestion.address.city}, {suggestion.address.state},{" "}
-                {suggestion.address.country}
+                {suggestion.city}, {suggestion.state},{" "}
+                {suggestion.country}
               </React.Fragment>
             ) : (
               <React.Fragment>
-                {suggestion.address.city}, {suggestion.address.country}
+                {suggestion.city}, {suggestion.country}
               </React.Fragment>
             )}
           </DropdownItem>
