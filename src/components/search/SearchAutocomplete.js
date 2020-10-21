@@ -48,7 +48,7 @@ const SearchAutocomplete = (props) => {
       {state.suggestions !== undefined &&
         state.suggestions.map((suggestion) => (
           <DropdownItem
-            key={suggestion.city}
+            key={suggestion.city + suggestion.countryCode + suggestion.state}
             onClick={(e) => {
               clickHandler(suggestion.city);
             }}
