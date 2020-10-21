@@ -14,7 +14,7 @@ const SearchAutocomplete = (props) => {
       axios
         .get(autocompleteUrl)
         .then((res) =>
-            setState({
+          setState({
             suggestions: res.data,
           })
         )
@@ -57,8 +57,7 @@ const SearchAutocomplete = (props) => {
           >
             {suggestion.countryCode === "USA" ? (
               <React.Fragment>
-                {suggestion.city}, {suggestion.state},{" "}
-                {suggestion.country}
+                {suggestion.city}, {suggestion.state}, {suggestion.country}
               </React.Fragment>
             ) : (
               <React.Fragment>

@@ -4,18 +4,19 @@ import WeatherDetails from "../WeatherDetails";
 import axios from "axios";
 
 const FavoriteLocations = () => {
+  const [state, setState] = useState([]);
 
-    const [state, setState] = useState([]);
-    
-    useEffect( () => {
-        axios.get("https://localhost:44336/api/favorite/favorites")
-            .then((res) => 
-            setState(res.data))
-    })
+  useEffect(() => {
+    axios
+      .get("https://localhost:44336/api/favorite/favorites")
+      .then((res) => setState(res.data));
+  }, []);
 
   return (
     <CardHolder>
-        {state.map(item => <WeatherDetails item={item} key={item.id} />)}
+      {state.map((item) => (
+        <WeatherDetails item={item} key={item.id} />
+      ))}
     </CardHolder>
   );
 };

@@ -98,7 +98,7 @@ const Weather = ({ currentWeather }) => {
   return (
     <div className="weather-box">
       <h2 style={{ marginLeft: "60px", display: "flex" }}>
-        {console.log(currentWeather)}
+        {/* {console.log(currentWeather)} */}
         {currentWeather.city}
         <AddFavorite location={currentWeather.city} />
       </h2>
