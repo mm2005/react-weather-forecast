@@ -16,6 +16,9 @@ const Weather = ({ currentWeather }) => {
   const chosenDay = useContext(ChosenDayContext)[0];
 
   useEffect(() => {
+    if (currentWeather.city === null) {
+      currentWeather.city='budapest';
+    }
     const url = `https://localhost:44336/api/weatherforecast/${currentWeather.city}`;
 
     function isChosenDay(data) {

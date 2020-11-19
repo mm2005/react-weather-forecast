@@ -6,7 +6,7 @@ import Weather from "../Weather";
 import SearchAutocomplete from "./SearchAutocomplete";
 
 const Search = () => {
-  const [city, setCity] = useState();
+  const [city, setCity] = useState("budapest");
   const url = `https://localhost:44336/api/currentweather/${city}`;
   const [searchTerm, setSearchTerm] = useState("");
   const [error, setError] = useState(null);
@@ -23,10 +23,10 @@ const Search = () => {
   });
 
   useEffect(() => {
+    console.log(url);
     axios
       .get(url)
       .then((res) => {
-        // console.log(res.data);
         setState({
           id: res.data.id,
           city: res.data.city,
