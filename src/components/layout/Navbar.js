@@ -32,6 +32,7 @@ function Navbar() {
         <NavParagraph>
           <NavLink to="/">WEATHER</NavLink> |{" "}
           <NavLink to="/favorites">MY CITIES</NavLink>{" "}
+          <NavLink to="/registration">Reg</NavLink>{" "}
         </NavParagraph>
       </nav>
     </Header>
